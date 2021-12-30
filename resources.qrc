@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/sparkle.png</file>
+        <file>icons/bullet_arrow_down.png</file>
+        <file>icons/bullet_arrow_right.png</file>
+        <file>icons/check.png</file>
+        <file>icons/cross.png</file>
+        <file>icons/pending.png</file>
+        <file>icons/add.png</file>
+        <file>icons/remove.png</file>
+        <file>icons/deadline.png</file>
+        <file>icons/hide.png</file>
+        <file>icons/open_control_panel.png</file>
+        <file>icons/close_black.png</file>
+        <file>icons/close_white.png</file>
+        <file>icons/periodicity.png</file>
+        <file>icons/book.png</file>
+    </qresource>
+</RCC>
