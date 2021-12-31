@@ -58,11 +58,6 @@ void SpendingsWidget::addProduct(Product* product)
     m_products.append(product);
 
     ProductCategorySelector::instance().addCategory(product->category());
-
-    connect(product, &Product::destroyed, this, [this, product]
-    {
-        removeProduct(product);
-    });
 }
 
 void SpendingsWidget::removeProduct(Product* product)

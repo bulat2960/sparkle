@@ -16,6 +16,7 @@ NotesWidget::NotesWidget(QWidget* parent) : QWidget(parent)
     layout->addWidget(m_notesListWidget);
 
     connect(m_notesListWidget, &NotesListWidget::noteCreated, this, &NotesWidget::addNote);
+    connect(m_notesListWidget, &NotesListWidget::noteRemoved, this, &NotesWidget::removeNote);
 
     for (auto note : m_notes)
     {
@@ -27,10 +28,10 @@ void NotesWidget::addNote(Note* note)
 {
     m_notes.append(note);
 
-    connect(note, &Note::destroyed, this, [this, note]
+    for (const auto& category : note->categories())
     {
-        removeNote(note);
-    });
+        NoteCategorySelector::instance().addCategory(category);
+    }
 }
 
 void NotesWidget::removeNote(Note* note)
@@ -90,11 +91,6 @@ void NotesWidget::loadData()
             else
             {
                 stringToRead = 1;
-
-                for (const auto& category : categories)
-                {
-                    NoteCategorySelector::instance().addCategory(category);
-                }
 
                 addNote(new Note(note, categories, lastUpdateDateTime));
 

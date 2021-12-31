@@ -84,11 +84,6 @@ void TaskTrackerWidget::appendTask(Task* task)
     }
 
     m_tasks.append(task);
-
-    connect(task, &Task::destroyed, this, [this, task]
-    {
-        removeTask(task);
-    });
 }
 
 void TaskTrackerWidget::removeTask(Task* task)
