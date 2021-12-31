@@ -28,6 +28,11 @@ void NotesListWidget::createDisplayedWidget(Note* note)
     noteWidget->updateHeight();
 
     connect(this, &NotesListWidget::sortingOrderChangeRequested, item, &NoteWidgetItem::changeSortingOrder);
+
+    connect(noteWidget, &NoteWidget::destroyed, this, [this, note]
+    {
+        emit noteRemoved(note);
+    });
 }
 
 void NotesListWidget::showContextMenu(const QPoint& point)

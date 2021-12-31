@@ -26,6 +26,7 @@ EnglishWidget::EnglishWidget(QWidget* parent) : QTabWidget(parent)
     connect(this, &EnglishWidget::currentChanged, this, &EnglishWidget::updateAnalytics);
 
     connect(m_dictionaryWidget, &DictionaryWidget::wordPairCreated, this, &EnglishWidget::addWordPair);
+    connect(m_dictionaryWidget, &DictionaryWidget::wordPairRemoved, this, &EnglishWidget::removeWordPair);
 
     for (auto wordPair : m_wordPairs)
     {
@@ -78,16 +79,12 @@ void EnglishWidget::prepareTestData(const QString& category)
 void EnglishWidget::addWordPair(WordPair* wordPair)
 {
     m_wordPairs.append(wordPair);
-
-    connect(wordPair, &WordPair::destroyed, this, [this, wordPair]
-    {
-        removeWordPair(wordPair);
-    });
 }
 
 void EnglishWidget::removeWordPair(WordPair* wordPair)
 {
     m_wordPairs.removeOne(wordPair);
+    wordPair->deleteLater();
 }
 
 void EnglishWidget::loadData()
@@ -145,7 +142,7 @@ void EnglishWidget::loadData()
                 while (lastLearningTime.date().day() < QDate::currentDate().day())
                 {
                     lastLearningTime = lastLearningTime.addDays(1);
-                    learningQuality = (learningQuality >= 0) ? learningQuality - 1 : 0;
+                    learningQuality = (learningQuality > 0) ? learningQuality - 1 : 0;
                 }
             }
 

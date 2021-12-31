@@ -364,8 +364,3 @@ void TaskWidget::changeStatus(Task::Status status)
 
     updateTaskControls();
 }
-
-TaskWidget::~TaskWidget()
-{
-    m_task->deleteLater();
-}

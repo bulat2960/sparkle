@@ -106,8 +106,3 @@ void WordPairWidget::addCategoryLabel(const QString& category)
     m_categoryLabelsLayout->insertWidget(m_categoryLabelsLayout->count() - 2, label);
     m_categoryLabelsMap.insert(category, label);
 }
-
-WordPairWidget::~WordPairWidget()
-{
-    m_wordPair->deleteLater();
-}

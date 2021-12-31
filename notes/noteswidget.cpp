@@ -36,6 +36,7 @@ void NotesWidget::addNote(Note* note)
 void NotesWidget::removeNote(Note* note)
 {
     m_notes.removeOne(note);
+    note->deleteLater();
 }
 
 void NotesWidget::loadData()

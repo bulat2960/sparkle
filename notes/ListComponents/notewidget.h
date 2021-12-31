@@ -12,7 +12,6 @@ class NoteWidget : public QWidget
 
 public:
     NoteWidget(Note* note, QWidget* parent = nullptr);
-    ~NoteWidget();
 
     Note* note() const;
 

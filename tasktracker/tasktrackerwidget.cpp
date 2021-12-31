@@ -95,6 +95,7 @@ void TaskTrackerWidget::removeTask(Task* task)
 {
     m_tasks.removeOne(task);
     m_timerController->unregisterTask(task);
+    task->deleteLater();
 }
 
 void TaskTrackerWidget::notifyAboutTaskDeadline(Task* task)

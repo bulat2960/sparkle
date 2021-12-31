@@ -68,6 +68,7 @@ void SpendingsWidget::addProduct(Product* product)
 void SpendingsWidget::removeProduct(Product* product)
 {
     m_products.removeOne(product);
+    product->deleteLater();
 }
 
 void SpendingsWidget::loadData()

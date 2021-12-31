@@ -41,8 +41,3 @@ Product* ProductWidget::product() const
 {
     return m_product;
 }
-
-ProductWidget::~ProductWidget()
-{
-    m_product->deleteLater();
-}

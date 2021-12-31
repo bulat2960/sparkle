@@ -12,7 +12,6 @@ class WordPairWidget : public QWidget
 
 public:
     WordPairWidget(WordPair* wordPair, QWidget* parent = nullptr);
-    ~WordPairWidget();
 
     WordPair* wordPair() const;
 

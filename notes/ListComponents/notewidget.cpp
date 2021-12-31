@@ -128,8 +128,3 @@ void NoteWidget::addCategoryLabel(const QString& category)
     m_categoryLabelsLayout->insertWidget(m_categoryLabelsLayout->count() - 3, label);
     m_categoryLabelsMap.insert(category, label);
 }
-
-NoteWidget::~NoteWidget()
-{
-    m_note->deleteLater();
-}

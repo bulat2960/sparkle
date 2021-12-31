@@ -45,6 +45,11 @@ void TaskListWidget::createDisplayedWidget(Task* task)
     }
 
     connect(this, &TaskListWidget::sortingOrderChangeRequested, item, &TaskWidgetItem::changeSortingOrder);
+
+    connect(taskWidget, &TaskWidget::destroyed, this, [this, task]
+    {
+        emit taskRemoved(task);
+    });
 }
 
 void TaskListWidget::showContextMenu(const QPoint& point)
