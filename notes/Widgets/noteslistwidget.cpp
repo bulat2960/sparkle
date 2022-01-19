@@ -9,7 +9,7 @@
 
 NotesListWidget::NotesListWidget(QWidget* parent) : ListWidget(parent)
 {
-    setSpacing(5);
+
 }
 
 void NotesListWidget::createDisplayedWidget(Note* note)

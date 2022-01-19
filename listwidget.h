@@ -12,16 +12,16 @@ class ListWidget : public QListWidget
 {
     Q_OBJECT
 
+public:
+    ListWidget(QWidget* parent = nullptr);
+    virtual ~ListWidget() = default;
+
 public slots:
     virtual void showContextMenu(const QPoint& point) = 0;
 
     QAction* createSortingRequestAction(const QString& text, Qt::SortOrder order = Qt::SortOrder::AscendingOrder);
 
     void sort();
-
-public:
-    ListWidget(QWidget* parent = nullptr);
-    virtual ~ListWidget() = default;
 
 signals:
     void sortingOrderChangeRequested(const QString& type);

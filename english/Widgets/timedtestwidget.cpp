@@ -4,6 +4,7 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QRandomGenerator>
+#include <QMessageBox>
 
 #include "../Utility/categorycolorselector.h"
 
@@ -174,7 +175,7 @@ void TimedTestWidget::stopTest()
         auto wordPair = m_wrongAnswersMap[wrongSelectedAnswer];
 
         QString correctAnswerText = QStringLiteral("<font color=\"green\">%1 (correct)</font>").arg(wordPair->russianWord());
-        QString wrongAnswerText = QStringLiteral("<font color=\"red\">%1 (your answer)</font>").arg(wrongSelectedAnswer);
+        QString wrongAnswerText = QStringLiteral("<font color=\"darkred\">%1 (your answer)</font>").arg(wrongSelectedAnswer);
 
         result.append(QStringLiteral("%1: %2, %3<br>")
                       .arg(wordPair->englishWord()).arg(correctAnswerText).arg(wrongAnswerText));
@@ -256,5 +257,14 @@ void TimedTestWidget::clearAnswerButtons()
 void TimedTestWidget::setTestData(const QList<WordPair*>& wordPairs)
 {
     m_testWordPairs = wordPairs;
+
+    if (m_testWordPairs.size() < 4)
+    {
+        QMessageBox box;
+        box.setText("Too little data to start the test.\n"
+                    "Please choose another category.");
+        box.exec();
+        return;
+    }
     startTest();
 }

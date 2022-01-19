@@ -9,8 +9,6 @@
 DictionaryWidget::DictionaryWidget(QWidget* parent) : ListWidget(parent)
 {
     m_updateCategoryListDialog = new UpdateCategoryListDialog(this);
-
-    setSpacing(5);
 }
 
 void DictionaryWidget::createDisplayedWidget(WordPair* wordPair)

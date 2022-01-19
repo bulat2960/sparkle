@@ -43,6 +43,7 @@ void TaskTrackerWidget::setupTaskListWidget(TaskListWidget* taskListWidget, cons
     addTab(taskListWidget, tabName);
 
     connect(taskListWidget, &TaskListWidget::taskCreated, this, &TaskTrackerWidget::appendTask);
+    connect(taskListWidget, &TaskListWidget::taskRemoved, this, &TaskTrackerWidget::removeTask);
 }
 
 void TaskTrackerWidget::appendTask(Task* task)

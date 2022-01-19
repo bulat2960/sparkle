@@ -13,6 +13,7 @@ SpendingsWidget::SpendingsWidget(QWidget *parent) : QTabWidget(parent)
     m_productListWidget = new ProductListWidget;
     addTab(m_productListWidget, "Spendings");
     connect(m_productListWidget, &ProductListWidget::productCreated, this, &SpendingsWidget::addProduct);
+    connect(m_productListWidget, &ProductListWidget::productRemoved, this, &SpendingsWidget::removeProduct);
 
     m_analyticsWidget = new SpendingsAnalyticsWidget;
     addTab(m_analyticsWidget, "Analytics");

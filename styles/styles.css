@@ -1,0 +1,12 @@
+/* Word pair widget */
+QPushButton#bookButton { border: 0px; }
+QLabel#learningQualityLabel { font-size: 18px; }
+QPushButton#addCategoryButton { border: 0px; }
+
+WordPairWidget EditableLabel QLabel, QLineEdit { border-radius: 10px; font-size: 30px; }
+
+/*ProductWidget EditableLabel QLabel, QLineEdit { border-radius: 10px; font-size: 20px; }
+
+SubtaskWidget EditableLabel QLabel, QLineEdit { border-radius: 10px; font-size: 16px; }
+
+TaskWidget EditableLabel QLabel, QLineEdit { border-radius: 10px; font-size: 30px; }*/

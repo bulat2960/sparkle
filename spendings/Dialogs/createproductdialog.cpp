@@ -24,7 +24,6 @@ CreateProductDialog::CreateProductDialog(QWidget* parent) : QDialog(parent)
 
     m_calendarWidget = new QCalendarWidget(this);
     m_calendarWidget->setStyleSheet("QTableView { selection-background-color: yellow; selection-color: black; }");
-    m_calendarWidget->setMinimumDate(QDate::currentDate());
 
     m_acceptButton = new QPushButton("Create");
 

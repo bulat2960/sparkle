@@ -4,6 +4,8 @@
 
 ListWidget::ListWidget(QWidget* parent) : QListWidget(parent)
 {
+    setSpacing(5);
+
     verticalScrollBar()->hide();
     verticalScrollBar()->setStyleSheet("QScrollBar { width: 0px; }");
 

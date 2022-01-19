@@ -30,7 +30,7 @@ private:
     QMap<QString, QLabel*> m_categoryLabelsMap;
     QHBoxLayout* m_categoryLabelsLayout {nullptr};
 
-    QVBoxLayout* m_mainLayout {nullptr};
+    QHBoxLayout* m_mainLayout {nullptr};
 
     WordPair* m_wordPair {nullptr};
 

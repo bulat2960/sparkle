@@ -37,6 +37,7 @@ EnglishWidget::EnglishWidget(QWidget* parent) : QTabWidget(parent)
 void EnglishWidget::updateAnalytics()
 {
     QMap<QString, double> categoryData;
+    categoryData["No category"] = 0;
 
     QMap<double, double> learningQualityData;
 
