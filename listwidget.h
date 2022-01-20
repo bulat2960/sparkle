@@ -3,8 +3,10 @@
 
 #include <QListWidget>
 #include <QMouseEvent>
+#include <QWheelEvent>
 #include <QAction>
 #include <QListWidgetItem>
+#include <QPropertyAnimation>
 
 #include "listwidgetitem.h"
 
@@ -32,8 +34,13 @@ protected slots:
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;
+    void wheelEvent(QWheelEvent* event) override;
+
+    void updateGeometries() override;
 
     ListWidgetItem* m_lastClickedItem {nullptr};
+
+    QPropertyAnimation* m_scrollAnimation {nullptr};
 };
 
 #endif // LISTWIDGET_H

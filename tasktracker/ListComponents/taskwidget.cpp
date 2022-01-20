@@ -7,7 +7,6 @@
 #include "../Dialogs/choosedatetimedialog.h"
 #include "../Dialogs/chooseperiodicitydialog.h"
 
-static const int textSize = 30;
 static const int headerHeight = 50;
 static const int statusLabelHeight = 25;
 static const int statusLabelsSpacing = 10;
@@ -31,28 +30,24 @@ TaskWidget::TaskWidget(Task* task, QWidget* parent)
 
     m_editableLabel = new EditableLabel;
     m_editableLabel->setText(task->name());
-    m_editableLabel->setFontSize(textSize);
     m_editableLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     m_editableLabel->setMinimumWidth(headerHeight);
     m_editableLabel->setFixedHeight(headerHeight);
 
     m_deadlineLabel = new QLabel(this);
     m_deadlineLabel->setFixedHeight(statusLabelHeight);
-    m_deadlineLabel->setStyleSheet("QLabel { font-size: 18px; }");
 
     updateDeadlineState(task->deadline());
     connect(task, &Task::deadlineChanged, this, &TaskWidget::updateDeadlineState);
 
     m_periodicityLabel = new QLabel(this);
     m_periodicityLabel->setFixedHeight(statusLabelHeight);
-    m_periodicityLabel->setStyleSheet("QLabel { font-size: 18px; }");
 
     updatePeriodicityState(task->periodicity());
     connect(task, &Task::periodicityChanged, this, &TaskWidget::updatePeriodicityState);
 
     m_completionTimeLabel = new QLabel(this);
     m_completionTimeLabel->setFixedHeight(statusLabelHeight);
-    m_completionTimeLabel->setStyleSheet("QLabel { font-size: 18px; }");
 
     updateCompletionTimeState(task->completionTime());
     connect(task, &Task::completionTimeChanged, this, &TaskWidget::updateCompletionTimeState);
@@ -196,7 +191,6 @@ Task* TaskWidget::task() const
 void TaskWidget::setupButton(QPushButton* button, const QString& iconName)
 {
     button->setFixedSize(headerHeight + statusLabelHeight + statusLabelsSpacing, headerHeight + statusLabelHeight + statusLabelsSpacing);
-    button->setStyleSheet("QPushButton { border: 0px; }");
     button->setIcon(QIcon(QStringLiteral(":/icons/%1.png").arg(iconName)));
     button->setIconSize(button->size());
 }

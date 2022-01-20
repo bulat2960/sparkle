@@ -20,7 +20,6 @@ EnglishWidget::EnglishWidget(QWidget* parent) : QTabWidget(parent)
     m_analyticsWidget = new EnglishAnalyticsWidget;
     addTab(m_analyticsWidget, "Analytics");
 
-    setStyleSheet("QTabBar::tab { font-size: 20px; }");
     tabBar()->setDocumentMode(true);
 
     connect(this, &EnglishWidget::currentChanged, this, &EnglishWidget::updateAnalytics);

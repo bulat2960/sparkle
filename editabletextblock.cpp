@@ -31,27 +31,15 @@ EditableTextBlock::EditableTextBlock(const QString& text, Qt::Alignment alignmen
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-void EditableTextBlock::updateStyleSheet()
-{
-    m_label->setStyleSheet(QStringLiteral("QLabel { border-radius: 10px; background-color: %1; font-size: %2px; }").arg(m_colorName).arg(m_fontSize));
-    m_textEdit->setStyleSheet(QStringLiteral("QTextEdit { border-radius: 10px; background-color: %1; font-size: %2px; }").arg(m_colorName).arg(m_fontSize));
-}
-
 void EditableTextBlock::setColor(const QString& colorName)
 {
-    m_colorName = colorName;
-    updateStyleSheet();
+    m_label->setStyleSheet(QStringLiteral("QLabel { background-color: %1; }").arg(colorName));
+    m_textEdit->setStyleSheet(QStringLiteral("QTextEdit { background-color: %1; }").arg(colorName));
 }
 
 void EditableTextBlock::setEditable(bool editable)
 {
     m_editable = editable;
-}
-
-void EditableTextBlock::setFontSize(int size)
-{
-    m_fontSize = size;
-    updateStyleSheet();
 }
 
 void EditableTextBlock::setText(const QString& text)
@@ -86,9 +74,8 @@ bool EditableTextBlock::eventFilter(QObject* watched, QEvent* event)
             // Write down text when press return or escape
             bool keyReturn = keyEvent->key() == Qt::Key_Return;
             bool keyEscape = keyEvent->key() == Qt::Key_Escape;
-            bool keyBackspace = keyEvent->key() == Qt::Key_Backspace;
 
-            if (keyBackspace)
+            if (not keyReturn and not keyEscape)
             {
                 return QWidget::eventFilter(watched, event);
             }
@@ -100,8 +87,11 @@ bool EditableTextBlock::eventFilter(QObject* watched, QEvent* event)
             if ((keyReturn or keyEscape) and noShiftModifier)
             {
                 m_stackedLayout->setCurrentIndex(0);
+                emit editingFinished();
                 return true;
             }
+
+            return QWidget::eventFilter(watched, event);
         }
         else if (event->type() == QEvent::FocusOut)
         {
@@ -109,15 +99,9 @@ bool EditableTextBlock::eventFilter(QObject* watched, QEvent* event)
             setText(m_textEdit->toPlainText().trimmed());
             m_stackedLayout->setCurrentIndex(0);
         }
-        if (event->type() == QEvent::FocusIn)
-        {
-            QTextCursor cursor = m_textEdit->textCursor();
-            cursor.setPosition(m_textEdit->document()->characterCount() - 1);
-            m_textEdit->setTextCursor(cursor);
-        }
     }
     else if (watched == m_label)
-    {
+    {   
         QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
 
         // Enable editing if doubleclicked using left button

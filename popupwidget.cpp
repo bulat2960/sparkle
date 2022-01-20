@@ -45,26 +45,15 @@ PopupWidget::PopupWidget(const QString& header, const QString& message, QWidget*
     m_headerLabel = new QLabel(header, this);
     m_headerLabel->setAlignment(Qt::AlignCenter);
     m_headerLabel->setWordWrap(true);
-    m_headerLabel->setStyleSheet("QLabel { color: white; "
-                                 "margin-top: 3px;"
-                                 "margin-bottom: 3px;"
-                                 "margin-left: 5px;"
-                                 "margin-right: 5px; }");
 
     m_messageLabel = new QLabel(message, this);
     m_messageLabel->setAlignment(Qt::AlignCenter);
     m_messageLabel->setWordWrap(true);
-    m_messageLabel->setStyleSheet("QLabel { color: white;"
-                                  "margin-top: 3px;"
-                                  "margin-bottom: 3px;"
-                                  "margin-left: 5px;"
-                                  "margin-right: 5px; }");
 
     auto closeButton = new QPushButton(this);
     closeButton->setFixedSize(closeButtonSize, closeButtonSize);
     closeButton->setIcon(QIcon(":/icons/close_white.png"));
     closeButton->setIconSize(QSize(closeButtonSize, closeButtonSize));
-    closeButton->setStyleSheet("QPushButton { border: 0px; }");
     closeButton->setGeometry(popupWidth - closeButtonSize - closeButtonOffset, closeButtonOffset, closeButtonSize, closeButtonSize);
     connect(closeButton, &QPushButton::clicked, this, [this] {
         m_timer->stop();

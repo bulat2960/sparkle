@@ -9,6 +9,8 @@
 
 class ProductWidget : public QWidget
 {
+    Q_OBJECT
+
 public:
     ProductWidget(Product* product, QWidget* parent = nullptr);
 

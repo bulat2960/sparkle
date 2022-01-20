@@ -6,7 +6,6 @@
 #include "../Utility/categorycolorselector.h"
 #include "../Dialogs/changewordpaircategoriesdialog.h"
 
-static const int textSize = 30;
 static const int wordLabelsHeight = 50;
 static const int categoryLabelsHeight = 25;
 
@@ -15,21 +14,18 @@ WordPairWidget::WordPairWidget(WordPair* wordPair, QWidget* parent)
      m_wordPair(wordPair)
 {
     m_englishEditableLabel = new EditableLabel(wordPair->englishWord(), Qt::AlignCenter);
-    setupEditableLabel(m_englishEditableLabel, "orange");
+    setupEditableLabel(m_englishEditableLabel, QStringLiteral("orange"));
 
     m_russianEditableLabel = new EditableLabel(wordPair->russianWord(), Qt::AlignCenter);
-    setupEditableLabel(m_russianEditableLabel, "lightblue");
+    setupEditableLabel(m_russianEditableLabel, QStringLiteral("lightblue"));
 
-
-    auto bookButton = new QPushButton;
+    auto bookButton = new QPushButton(this);
     bookButton->setIcon(QIcon(":/icons/book.png"));
     bookButton->setObjectName("bookButton");
-    bookButton->setIconSize(QSize(wordLabelsHeight, wordLabelsHeight));
 
     m_learningQualityLabel = new QLabel(QStringLiteral("%1%").arg(wordPair->learningQuality()));
     m_learningQualityLabel->setAlignment(Qt::AlignCenter);
     m_learningQualityLabel->setObjectName("learningQualityLabel");
-    m_learningQualityLabel->setFixedHeight(categoryLabelsHeight);
     connect(wordPair, &WordPair::learningQualityChanged, m_learningQualityLabel, [this](double learningQuality)
     {
          m_learningQualityLabel->setText(QStringLiteral("%1%").arg(learningQuality));
@@ -37,10 +33,11 @@ WordPairWidget::WordPairWidget(WordPair* wordPair, QWidget* parent)
 
     auto learningQualityLayout = new QVBoxLayout;
     learningQualityLayout->setSpacing(0);
-    learningQualityLayout->addWidget(bookButton, 3);
-    learningQualityLayout->addWidget(m_learningQualityLabel, 1);
+    learningQualityLayout->addWidget(bookButton, 3, Qt::AlignBottom);
+    learningQualityLayout->addWidget(m_learningQualityLabel, 2, Qt::AlignTop);
 
     auto editableLabelsLayout = new QHBoxLayout;
+    editableLabelsLayout->setSpacing(5);
     editableLabelsLayout->addWidget(m_englishEditableLabel);
     editableLabelsLayout->addWidget(m_russianEditableLabel);
 
@@ -51,11 +48,11 @@ WordPairWidget::WordPairWidget(WordPair* wordPair, QWidget* parent)
     connect(addCategoryButton, &QPushButton::released, this, &WordPairWidget::openAddCategoryDialog);
 
     m_categoryLabelsLayout = new QHBoxLayout;
-    m_categoryLabelsLayout->setSpacing(10);
+    m_categoryLabelsLayout->setSpacing(5);
     m_categoryLabelsLayout->addWidget(addCategoryButton);
 
     auto spacerWidget = new QWidget(this);
-    spacerWidget->setMinimumHeight(categoryLabelsHeight);
+    spacerWidget->setFixedHeight(categoryLabelsHeight);
     m_categoryLabelsLayout->addWidget(spacerWidget, 100);
 
     for (const auto& category : wordPair->categories())
@@ -68,8 +65,8 @@ WordPairWidget::WordPairWidget(WordPair* wordPair, QWidget* parent)
     visualDataLayout->addLayout(m_categoryLabelsLayout);
 
     m_mainLayout = new QHBoxLayout(this);
-    m_mainLayout->setContentsMargins(10, 10, 10, 10);
-    m_mainLayout->setSpacing(5);
+    m_mainLayout->setContentsMargins(5, 5, 5, 5);
+    m_mainLayout->setSpacing(2);
     m_mainLayout->addLayout(visualDataLayout);
     m_mainLayout->addLayout(learningQualityLayout);
 
@@ -81,7 +78,6 @@ WordPairWidget::WordPairWidget(WordPair* wordPair, QWidget* parent)
 
 void WordPairWidget::setupEditableLabel(EditableLabel* label, const QString& colorString)
 {
-    //label->setFontSize(textSize);
     label->setColor(colorString);
     label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     label->setFixedHeight(wordLabelsHeight);
@@ -111,7 +107,7 @@ void WordPairWidget::addCategoryLabel(const QString& category)
     QString colorSymbol = CategoryColorSelector::instance().colorSymbolForCategory(category);
     auto label = new QLabel(colorSymbol + category, this);
     label->setMinimumHeight(categoryLabelsHeight);
-    label->setStyleSheet("QLabel { font-size: 18px; }");
+    label->setObjectName("wordPairCategoryLabel");
     m_categoryLabelsLayout->insertWidget(m_categoryLabelsLayout->count() - 2, label);
     m_categoryLabelsMap.insert(category, label);
 }

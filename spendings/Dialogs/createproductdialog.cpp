@@ -23,7 +23,6 @@ CreateProductDialog::CreateProductDialog(QWidget* parent) : QDialog(parent)
     connect(m_priceLineEdit, &QLineEdit::textChanged, this, &CreateProductDialog::checkIfCreateEnabled);
 
     m_calendarWidget = new QCalendarWidget(this);
-    m_calendarWidget->setStyleSheet("QTableView { selection-background-color: yellow; selection-color: black; }");
 
     m_acceptButton = new QPushButton("Create");
 

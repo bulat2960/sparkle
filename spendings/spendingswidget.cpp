@@ -18,7 +18,6 @@ SpendingsWidget::SpendingsWidget(QWidget *parent) : QTabWidget(parent)
     m_analyticsWidget = new SpendingsAnalyticsWidget;
     addTab(m_analyticsWidget, "Analytics");
 
-    setStyleSheet("QTabBar::tab { font-size: 20px; }");
     tabBar()->setDocumentMode(true);
 
     connect(this, &SpendingsWidget::currentChanged, this, &SpendingsWidget::updateAnalytics);

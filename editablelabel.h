@@ -18,7 +18,6 @@ public:
     bool eventFilter(QObject* watched, QEvent* event);
 
     void setEditable(bool editable);
-    void setFontSize(int size);
 
     QString text() const;
 
@@ -36,11 +35,6 @@ private:
     QStackedLayout* m_stackedLayout {nullptr};
 
     bool m_editable {true};
-
-    int m_fontSize;
-    QString m_colorName;
-
-    void updateStyleSheet();
 };
 
 #endif // EDITABLELABEL_H

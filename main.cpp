@@ -26,8 +26,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QMap<int, double> values;
-
     a.setApplicationName(QStringLiteral("Sparkle"));
 
     QString applicationPath = QCoreApplication::applicationFilePath().replace('/', '\\');

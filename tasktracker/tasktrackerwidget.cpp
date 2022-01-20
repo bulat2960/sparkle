@@ -17,7 +17,6 @@ TaskTrackerWidget::TaskTrackerWidget(QWidget* parent) : QTabWidget(parent)
     m_oneTimeTasksWidget = new TaskListWidget(TaskListWidget::Type::OneTime);
     setupTaskListWidget(m_oneTimeTasksWidget, QStringLiteral("One-time"));
 
-    setStyleSheet("QTabBar::tab { font-size: 20px; }");
     tabBar()->setDocumentMode(true);
 
     for (Task* task : m_tasks)
