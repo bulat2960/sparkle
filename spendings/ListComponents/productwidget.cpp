@@ -2,13 +2,14 @@
 
 #include <QHBoxLayout>
 
-static const int lineHeight = 25;
+static const int lineHeight = 30;
 
 ProductWidget::ProductWidget(Product* product, QWidget* parent)
     : QWidget(parent),
       m_product(product)
 {
     auto mainLayout = new QHBoxLayout(this);
+    mainLayout->setContentsMargins(5, 5, 5, 5);
 
     m_categoryEditableLabel = new EditableLabel(product->category(), Qt::AlignCenter, this);
     m_categoryEditableLabel->setColor("lightgray");
