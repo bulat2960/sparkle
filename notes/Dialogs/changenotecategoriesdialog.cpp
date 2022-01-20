@@ -84,12 +84,10 @@ ChangeNoteCategoriesDialog::ChangeNoteCategoriesDialog(Note* note, QWidget* pare
 
 void ChangeNoteCategoriesDialog::accept()
 {
-    qDebug() << m_categoryCheckBoxes;
     for (auto checkBox : m_categoryCheckBoxes)
     {
         if (checkBox->isChecked())
         {
-            qDebug() << "category added" << checkBox->text();
             m_note->addCategory(checkBox->text());
         }
         else

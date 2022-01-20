@@ -7,7 +7,7 @@
 TaskTrackerWidget::TaskTrackerWidget(QWidget* parent) : QTabWidget(parent)
 {
     m_timerController = new TimerController(this);
-    connect(m_timerController, &TimerController::deadlineNotified, this, &TaskTrackerWidget::notifyAboutTaskDeadline);
+    connect(m_timerController, &TimerController::deadlineNotified, this, &TaskTrackerWidget::popupCreateRequested);
 
     loadData();
 
@@ -91,13 +91,6 @@ void TaskTrackerWidget::removeTask(Task* task)
     m_tasks.removeOne(task);
     m_timerController->unregisterTask(task);
     task->deleteLater();
-}
-
-void TaskTrackerWidget::notifyAboutTaskDeadline(Task* task)
-{
-    QString header = QStringLiteral("Deadline!");
-    QString message = task->name();
-    emit popupCreateRequested(header, message);
 }
 
 void TaskTrackerWidget::loadData()

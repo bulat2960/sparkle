@@ -14,7 +14,7 @@ EnglishWidget::EnglishWidget(QWidget* parent) : QTabWidget(parent)
     addTab(m_dictionaryWidget, "Dictionary");
 
     m_timedTestWidget = new TimedTestWidget;
-    addTab(m_timedTestWidget, "TimedTest");
+    addTab(m_timedTestWidget, "Timed test");
     connect(m_timedTestWidget, &TimedTestWidget::testDataRequested, this, &EnglishWidget::prepareTestData);
 
     m_analyticsWidget = new EnglishAnalyticsWidget;

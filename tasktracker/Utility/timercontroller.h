@@ -5,6 +5,8 @@
 #include <QObject>
 #include <QMap>
 
+#include <functional>
+
 #include "../task.h"
 
 class TimerController : public QObject
@@ -20,10 +22,12 @@ public slots:
     void unregisterTask(Task* task);
 
 signals:
-    void deadlineNotified(Task* task);
+    void deadlineNotified(const QString& title, const QString& messages);
 
 private:
     QMap<Task*, QTimer*> m_taskTimerMap;
+
+    void setupReminder(QTimer* timer, int timeInterval, const std::function<void (void)>& f);
 };
 
 #endif // TIMERCONTROLLER_H

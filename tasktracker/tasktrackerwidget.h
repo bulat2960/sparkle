@@ -20,11 +20,9 @@ public:
     void saveData();
 
 signals:
-    void popupCreateRequested(const QString& header, const QString& message);
+    void popupCreateRequested(const QString& title, const QString& message);
 
 private slots:
-    void notifyAboutTaskDeadline(Task* task);
-
     void appendTask(Task* task);
     void removeTask(Task* task);
 
