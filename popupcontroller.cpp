@@ -11,9 +11,9 @@ PopupController::PopupController(QWidget *parent) : QObject(parent)
     m_parent = parent;
 }
 
-void PopupController::createPopup(const QString& header, const QString& message)
+void PopupController::createPopup(const QString& title, const QString& message)
 {
-    auto popup = initPopup(header, message);
+    auto popup = initPopup(title, message);
 
     if (m_popupsList.size() < 3)
     {
@@ -26,11 +26,11 @@ void PopupController::createPopup(const QString& header, const QString& message)
     }
 }
 
-PopupWidget* PopupController::initPopup(const QString& header, const QString& message)
+PopupWidget* PopupController::initPopup(const QString& title, const QString& message)
 {
     QSize screenSize = QApplication::primaryScreen()->size();
 
-    auto popup = new PopupWidget(header, message, m_parent);
+    auto popup = new PopupWidget(title, message, m_parent);
 
     connect(popup, &PopupWidget::finished, this, [this, popup]
     {

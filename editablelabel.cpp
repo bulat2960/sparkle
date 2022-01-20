@@ -27,27 +27,15 @@ EditableLabel::EditableLabel(const QString& text, Qt::Alignment alignment, QWidg
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-void EditableLabel::updateStyleSheet()
-{
-    m_label->setStyleSheet(QStringLiteral("QLabel { border-radius: 10px; background-color: %1; font-size: %2px; }").arg(m_colorName).arg(m_fontSize));
-    m_lineEdit->setStyleSheet(QStringLiteral("QLineEdit { border-radius: 10px; background-color: %1; font-size: %2px; }").arg(m_colorName).arg(m_fontSize));
-}
-
 void EditableLabel::setColor(const QString& colorName)
 {
-    m_colorName = colorName;
-    updateStyleSheet();
+    m_label->setStyleSheet(QStringLiteral("background-color: %1;").arg(colorName));
+    m_lineEdit->setStyleSheet(QStringLiteral("background-color: %1;").arg(colorName));
 }
 
 void EditableLabel::setEditable(bool editable)
 {
     m_editable = editable;
-}
-
-void EditableLabel::setFontSize(int size)
-{
-    m_fontSize = size;
-    updateStyleSheet();
 }
 
 void EditableLabel::setText(const QString& text)

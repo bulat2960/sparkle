@@ -14,7 +14,7 @@ public:
     explicit PopupController(QWidget* parent = nullptr);
 
 public slots:
-    void createPopup(const QString& header, const QString& message);
+    void createPopup(const QString& title, const QString& message);
 
 private slots:
     void movePopups(int popupNumber);
@@ -23,7 +23,7 @@ private:
     QList<PopupWidget*> m_popupsList;
     QList<PopupWidget*> m_pendingPopupsList;
 
-    PopupWidget* initPopup(const QString& header, const QString& message);
+    PopupWidget* initPopup(const QString& title, const QString& message);
     void checkPendingPopups();
 
     QWidget* m_parent {nullptr};

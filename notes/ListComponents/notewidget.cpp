@@ -14,14 +14,10 @@ NoteWidget::NoteWidget(Note* note, QWidget* parent)
       m_note(note)
 {
     m_noteEditableTextBlock = new EditableTextBlock(note->note(), Qt::AlignLeft | Qt::AlignTop);
-
-    m_noteEditableTextBlock->setFontSize(textSize);
-    m_noteEditableTextBlock->setColor("lightgray");
     m_noteEditableTextBlock->setMinimumHeight(textBlockMinimumHeight);
 
     auto addCategoryButton = new QPushButton;
     addCategoryButton->setIcon(QIcon(":/icons/add.png"));
-    addCategoryButton->setStyleSheet("QPushButton { border: 0px; }");
     connect(addCategoryButton, &QPushButton::released, this, &NoteWidget::openAddCategoryDialog);
 
     m_lastUpdateDateTimeLabel = new QLabel(note->lastUpdateDateTime().toString("dd-MM-yyyy hh:mm:ss"));
@@ -52,9 +48,13 @@ NoteWidget::NoteWidget(Note* note, QWidget* parent)
     connect(m_noteEditableTextBlock, &EditableTextBlock::textChanged, this, [this](const QString& text)
     {
         m_note->setNote(text);
+        updateHeight();
+    });
+
+    connect(m_noteEditableTextBlock, &EditableTextBlock::editingFinished, this, [this]
+    {
         m_note->setLastUpdateDateTime(QDateTime::currentDateTime());
         m_lastUpdateDateTimeLabel->setText(m_note->lastUpdateDateTime().toString("dd-MM-yyyy hh:mm:ss"));
-        updateHeight();
     });
 
     connect(note, &Note::categoryAdded, this, &NoteWidget::addCategoryLabel);
@@ -127,9 +127,4 @@ void NoteWidget::addCategoryLabel(const QString& category)
 
     m_categoryLabelsLayout->insertWidget(m_categoryLabelsLayout->count() - 3, label);
     m_categoryLabelsMap.insert(category, label);
-}
-
-NoteWidget::~NoteWidget()
-{
-    m_note->deleteLater();
 }

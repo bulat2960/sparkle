@@ -14,18 +14,18 @@ EnglishWidget::EnglishWidget(QWidget* parent) : QTabWidget(parent)
     addTab(m_dictionaryWidget, "Dictionary");
 
     m_timedTestWidget = new TimedTestWidget;
-    addTab(m_timedTestWidget, "TimedTest");
+    addTab(m_timedTestWidget, "Timed test");
     connect(m_timedTestWidget, &TimedTestWidget::testDataRequested, this, &EnglishWidget::prepareTestData);
 
     m_analyticsWidget = new EnglishAnalyticsWidget;
     addTab(m_analyticsWidget, "Analytics");
 
-    setStyleSheet("QTabBar::tab { font-size: 20px; }");
     tabBar()->setDocumentMode(true);
 
     connect(this, &EnglishWidget::currentChanged, this, &EnglishWidget::updateAnalytics);
 
     connect(m_dictionaryWidget, &DictionaryWidget::wordPairCreated, this, &EnglishWidget::addWordPair);
+    connect(m_dictionaryWidget, &DictionaryWidget::wordPairRemoved, this, &EnglishWidget::removeWordPair);
 
     for (auto wordPair : m_wordPairs)
     {
@@ -36,6 +36,7 @@ EnglishWidget::EnglishWidget(QWidget* parent) : QTabWidget(parent)
 void EnglishWidget::updateAnalytics()
 {
     QMap<QString, double> categoryData;
+    categoryData["No category"] = 0;
 
     QMap<double, double> learningQualityData;
 
@@ -78,16 +79,12 @@ void EnglishWidget::prepareTestData(const QString& category)
 void EnglishWidget::addWordPair(WordPair* wordPair)
 {
     m_wordPairs.append(wordPair);
-
-    connect(wordPair, &WordPair::destroyed, this, [this, wordPair]
-    {
-        removeWordPair(wordPair);
-    });
 }
 
 void EnglishWidget::removeWordPair(WordPair* wordPair)
 {
     m_wordPairs.removeOne(wordPair);
+    wordPair->deleteLater();
 }
 
 void EnglishWidget::loadData()
@@ -145,7 +142,7 @@ void EnglishWidget::loadData()
                 while (lastLearningTime.date().day() < QDate::currentDate().day())
                 {
                     lastLearningTime = lastLearningTime.addDays(1);
-                    learningQuality = (learningQuality >= 0) ? learningQuality - 1 : 0;
+                    learningQuality = (learningQuality > 0) ? learningQuality - 1 : 0;
                 }
             }
 

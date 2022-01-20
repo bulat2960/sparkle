@@ -20,8 +20,17 @@ void PieChart::updatePieSlice(const QString& label, double value)
 
     if (m_pieSliceMap.contains(label))
     {
-        m_pieSliceMap[label]->setValue(value);
-        m_pieSliceMap[label]->setLabel(displayedLabel);
+        if (value == 0)
+        {
+            m_pieSeries->remove(m_pieSliceMap[label]);
+            m_pieSliceMap.remove(label);
+        }
+        else
+        {
+            m_pieSliceMap[label]->setValue(value);
+            m_pieSliceMap[label]->setLabel(displayedLabel);
+        }
+
     }
     else
     {
@@ -35,6 +44,5 @@ void PieChart::updatePieSlice(const QString& label, double value)
 
         m_pieSeries->append(pieSlice);
         m_pieSliceMap.insert(label, pieSlice);
-
     }
 }

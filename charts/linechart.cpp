@@ -24,6 +24,7 @@ LineChart::LineChart(const QString &title, const QStringList& labels, const QLis
     addAxis(m_xAxis, Qt::AlignBottom);
 
     m_yAxis = new QValueAxis;
+    m_yAxis->setMax(100);
     addAxis(m_yAxis, Qt::AlignLeft);
 
     m_lineSeries->attachAxis(m_xAxis);

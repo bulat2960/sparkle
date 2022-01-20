@@ -8,13 +8,11 @@
 ChooseDateTimeDialog::ChooseDateTimeDialog(QWidget* parent) : QDialog(parent)
 {
     m_calendarWidget = new QCalendarWidget(this);
-    m_calendarWidget->setStyleSheet("QTableView { selection-background-color: yellow; selection-color: black; }");
     m_calendarWidget->setMinimumDate(QDate::currentDate());
     connect(m_calendarWidget, &QCalendarWidget::selectionChanged, this, &ChooseDateTimeDialog::fillTimeList);
 
     m_timeList = new QListView(this);
     m_timeList->setEditTriggers(QListView::NoEditTriggers);
-    m_timeList->setStyleSheet("QListView::item:selected { background-color: yellow; color: black; }");
     fillTimeList();
 
     auto dateTimeLayout = new QHBoxLayout;

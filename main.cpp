@@ -1,24 +1,30 @@
 #include <QApplication>
-#include <QSettings>
 
-#include <QAction>
-#include <QMenu>
 #include <QHotkey>
+#include <QFile>
+#include <QSettings>
 
 #include "mainwindow.h"
 #include "popupwidget.h"
 
-#include "charts/piechart.h"
-#include "charts/linechart.h"
+void initStyleSheet(QApplication *app)
+{
+    QFile styleFile(":/styles/styles.css");
 
-#include <QChartView>
-#include <QRandomGenerator>
+    if (styleFile.open(QIODevice::ReadOnly)) {
+        QTextStream textStream(&styleFile);
+        QString styleSheet = textStream.readAll();
+        styleFile.close();
+        app->setStyleSheet(styleSheet);
+        //app->setFont(QFont("Liberation sans"));
+    } else {
+        qDebug() << "Can't open file";
+    }
+}
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    QMap<int, double> values;
 
     a.setApplicationName(QStringLiteral("Sparkle"));
 
@@ -44,12 +50,14 @@ int main(int argc, char *argv[])
     QHotkey showHotkey(QKeySequence("Ctrl+Alt+S"), true, &a);
     QHotkey hideHotkey(QKeySequence("Ctrl+Alt+D"), true, &a);
 
-    QObject::connect(&showHotkey, &QHotkey::activated, &mainWindow, &MainWindow::show);
+    QObject::connect(&showHotkey, &QHotkey::activated, &mainWindow, &MainWindow::showFullScreen);
     QObject::connect(&hideHotkey, &QHotkey::activated, &mainWindow, &MainWindow::hide);
+
+    initStyleSheet(&a);
 
 
     trayIcon.show();
-    mainWindow.showFullScreen();
+    //mainWindow.showFullScreen();
 
     return a.exec();
 }

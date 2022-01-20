@@ -15,7 +15,6 @@ class TaskWidget : public QWidget
 
 public:
     TaskWidget(Task* task, QWidget* parent = nullptr);
-    ~TaskWidget();
 
     Task* task() const;
 

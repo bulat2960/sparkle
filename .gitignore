@@ -1,2 +1,4 @@
 *.pro.user*
 *.txt*
+*.py*
+*.bak

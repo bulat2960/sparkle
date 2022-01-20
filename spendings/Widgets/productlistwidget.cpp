@@ -22,6 +22,11 @@ void ProductListWidget::createDisplayedWidget(Product* product)
     scrollToItem(item);
 
     connect(this, &ProductListWidget::sortingOrderChangeRequested, item, &ProductWidgetItem::changeSortingOrder);
+
+    connect(productWidget, &ProductWidget::destroyed, this, [this, product]
+    {
+        emit productRemoved(product);
+    });
 }
 
 void ProductListWidget::showContextMenu(const QPoint& point)

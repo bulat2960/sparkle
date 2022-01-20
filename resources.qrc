@@ -15,5 +15,7 @@
         <file>icons/close_white.png</file>
         <file>icons/periodicity.png</file>
         <file>icons/book.png</file>
+        <file>icons/sparkle.ico</file>
+        <file>styles/styles.css</file>
     </qresource>
 </RCC>

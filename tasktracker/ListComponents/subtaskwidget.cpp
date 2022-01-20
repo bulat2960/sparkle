@@ -12,23 +12,17 @@ SubtaskWidget::SubtaskWidget(Task* task, QWidget* parent)
     layout->setContentsMargins(0, 0, 0, 0);
 
     m_editableLabel = new EditableLabel(task->name());
-    m_editableLabel->setFontSize(16);
     m_editableLabel->setFixedHeight(lineHeight);
 
     m_checkBox = new QCheckBox(this);
     m_checkBox->setFixedSize(lineHeight, lineHeight);
     m_checkBox->setChecked(task->status() == Task::Status::Done);
-    m_checkBox->setStyleSheet("QCheckBox { border: 0px; }"
-                              "QCheckBox::indicator { width: 29px; height: 29px; }"
-                              "QCheckBox::indicator:checked { image: url(:/icons/check.png); }"
-                              "QCheckBox::indicator:unchecked { image: url(:/icons/pending.png); }");
 
     auto spacerWidget = new QWidget(this);
     spacerWidget->setFixedSize(80, lineHeight);
 
     m_removeButton = new QPushButton(this);
     m_removeButton->setFixedSize(lineHeight, lineHeight);
-    m_removeButton->setStyleSheet("QPushButton { border: 0px; }");
     m_removeButton->setIcon(QIcon(":/icons/remove.png"));
     m_removeButton->setIconSize(m_removeButton->size());
 

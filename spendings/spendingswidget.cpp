@@ -13,11 +13,11 @@ SpendingsWidget::SpendingsWidget(QWidget *parent) : QTabWidget(parent)
     m_productListWidget = new ProductListWidget;
     addTab(m_productListWidget, "Spendings");
     connect(m_productListWidget, &ProductListWidget::productCreated, this, &SpendingsWidget::addProduct);
+    connect(m_productListWidget, &ProductListWidget::productRemoved, this, &SpendingsWidget::removeProduct);
 
     m_analyticsWidget = new SpendingsAnalyticsWidget;
     addTab(m_analyticsWidget, "Analytics");
 
-    setStyleSheet("QTabBar::tab { font-size: 20px; }");
     tabBar()->setDocumentMode(true);
 
     connect(this, &SpendingsWidget::currentChanged, this, &SpendingsWidget::updateAnalytics);
@@ -58,16 +58,12 @@ void SpendingsWidget::addProduct(Product* product)
     m_products.append(product);
 
     ProductCategorySelector::instance().addCategory(product->category());
-
-    connect(product, &Product::destroyed, this, [this, product]
-    {
-        removeProduct(product);
-    });
 }
 
 void SpendingsWidget::removeProduct(Product* product)
 {
     m_products.removeOne(product);
+    product->deleteLater();
 }
 
 void SpendingsWidget::loadData()

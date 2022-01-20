@@ -4,6 +4,7 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QRandomGenerator>
+#include <QMessageBox>
 
 #include "../Utility/categorycolorselector.h"
 
@@ -28,14 +29,13 @@ void TimedTestWidget::setupSettingsWidget()
 
     auto categoriesComboBox = new QComboBox;
     categoriesComboBox->addItems(existingCategories);
-    categoriesComboBox->setStyleSheet("QComboBox { font-size: 30px; }");
 
     auto categorySelectLabel = new QLabel("Choose testing category:");
-    categorySelectLabel->setStyleSheet("QLabel { font-size: 50px; }");
+    categorySelectLabel->setObjectName("categorySelectLabel");
     categorySelectLabel->setAlignment(Qt::AlignCenter);
 
     auto startButton = new QPushButton("Start");
-    startButton->setStyleSheet("QPushButton { font-size: 30px; }");
+    startButton->setObjectName("startButton");
 
     auto settingsLayout = new QVBoxLayout;
     settingsLayout->addWidget(new QWidget, 10);
@@ -60,7 +60,7 @@ void TimedTestWidget::setupTestWidget()
     m_testWidget = new QWidget(this);
 
     auto timerLabel = new QLabel(QString::number(m_remainingSeconds));
-    timerLabel->setStyleSheet("QLabel { font-size: 50px; }");
+    timerLabel->setObjectName("timerLabel");
     timerLabel->setAlignment(Qt::AlignHCenter);
 
     m_timer = new QTimer(this);
@@ -79,11 +79,11 @@ void TimedTestWidget::setupTestWidget()
     });
 
     m_answerLabel = new QLabel;
-    m_answerLabel->setStyleSheet("QLabel { font-size: 50px; }");
+    m_answerLabel->setObjectName("answerLabel");
     m_answerLabel->setAlignment(Qt::AlignCenter);
 
     auto stopTestButton = new QPushButton("Stop test");
-    stopTestButton->setStyleSheet("QPushButton { font-size: 50px; }");
+    stopTestButton->setObjectName("stopTestButton");
     connect(stopTestButton, &QPushButton::clicked, this, &TimedTestWidget::stopTest);
 
     auto testLayout = new QVBoxLayout;
@@ -93,7 +93,7 @@ void TimedTestWidget::setupTestWidget()
     for (int i = 0; i < answerButtonsNumber; i++)
     {
         auto answerButton = new QPushButton;
-        answerButton->setStyleSheet("QPushButton { font-size: 30px; }");
+        answerButton->setObjectName("answerButton");
         testLayout->addWidget(answerButton, 1);
         connect(answerButton, &QPushButton::clicked, this, [this]
         {
@@ -118,15 +118,15 @@ void TimedTestWidget::setupResultWidget()
     auto resultLayout = new QVBoxLayout;
 
     auto label = new QLabel("Results");
-    label->setStyleSheet("QLabel {font-size: 50px; }");
+    label->setObjectName("resultsLabel");
     label->setAlignment(Qt::AlignHCenter);
 
     m_wrongAnswersLabel = new QLabel;
-    m_wrongAnswersLabel->setStyleSheet("QLabel { font-size: 30px; }");
+    m_wrongAnswersLabel->setObjectName("wrongAnswersLabel");
     m_wrongAnswersLabel->setAlignment(Qt::AlignCenter);
 
     auto finishTestButton = new QPushButton("Finish test");
-    finishTestButton->setStyleSheet("QPushButton { font-size: 50px; }");
+    finishTestButton->setObjectName("finishTestButton");
     connect(finishTestButton, &QPushButton::clicked, this, [this]
     {
         m_stackedLayout->setCurrentWidget(m_settingsWidget);
@@ -174,7 +174,7 @@ void TimedTestWidget::stopTest()
         auto wordPair = m_wrongAnswersMap[wrongSelectedAnswer];
 
         QString correctAnswerText = QStringLiteral("<font color=\"green\">%1 (correct)</font>").arg(wordPair->russianWord());
-        QString wrongAnswerText = QStringLiteral("<font color=\"red\">%1 (your answer)</font>").arg(wrongSelectedAnswer);
+        QString wrongAnswerText = QStringLiteral("<font color=\"darkred\">%1 (your answer)</font>").arg(wrongSelectedAnswer);
 
         result.append(QStringLiteral("%1: %2, %3<br>")
                       .arg(wordPair->englishWord()).arg(correctAnswerText).arg(wrongAnswerText));
@@ -256,5 +256,14 @@ void TimedTestWidget::clearAnswerButtons()
 void TimedTestWidget::setTestData(const QList<WordPair*>& wordPairs)
 {
     m_testWordPairs = wordPairs;
+
+    if (m_testWordPairs.size() < 4)
+    {
+        QMessageBox box;
+        box.setText("Too little data to start the test.\n"
+                    "Please choose another category.");
+        box.exec();
+        return;
+    }
     startTest();
 }

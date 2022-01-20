@@ -40,7 +40,6 @@ void SpendingsAnalyticsWidget::setData(const QMap<int, double>& data)
     int currentMonthBorder = m_monthBorders[currentMonth - 1];
     int prevMonthBorder = (currentMonth == 1) ? 0 : m_monthBorders[currentMonth - 2];
 
-
     m_yearChart->setData(data);
 
     QMap<int, double> monthData;

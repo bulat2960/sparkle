@@ -1,0 +1,78 @@
+QPushButton { border: 0px; }
+
+QDialog QLabel { font-size: 14px; }
+
+QDialog QPushButton { border: 2px solid #8f8f91; border-radius: 6px; min-width: 80px; min-height: 20px;
+                      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, top: 0 #f6f7fa, stop: 1 #dadbde); }
+
+QDialog QPushButton:pressed { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }
+
+QDialog QPushButton:flat { border: none; }
+QDialog QPushButton:default { border-color: navy; }
+
+
+/* Word pair widget */
+WordPairWidget EditableLabel QLabel { border-radius: 10px; font-size: 30px; }
+WordPairWidget EditableLabel QLineEdit { border-radius: 10px; font-size: 30px; }
+WordPairWidget QLabel#wordPairCategoryLabel { font-size: 18px; }
+WordPairWidget QPushButton#bookButton { qproperty-iconSize: 50px; } /* 50px related to height of the task widget */
+WordPairWidget QLabel#learningQualityLabel { font-size: 18px; }
+
+/* TimedTestWidget */
+TimedTestWidget QPushButton { border: 1px solid black; background-color: lightgray; }
+TimedTestWidget QComboBox { font-size: 30px; }
+TimedTestWidget QLabel#timerLabel { font-size: 50px; }
+TimedTestWidget QLabel#categorySelectLabel { font-size: 50px; }
+TimedTestWidget QLabel#answerLabel { font-size: 50px; }
+TimedTestWidget QPushButton#stopTestButton { font-size: 50px; }
+TimedTestWidget QPushButton#answerButton { font-size: 30px; }
+TimedTestWidget QPushButton#startButton { font-size: 30px; /*border: 1px solid black;*/ }
+TimedTestWidget QLabel#wrongAnswersLabel { font-size: 30px; }
+TimedTestWidget QPushButton#finishTestButton { font-size: 50px; }
+TimedTestWidget QLabel#resultsLabel { font-size: 50px; }
+
+/* QTabBar */
+QTabBar::tab { font-size: 20px; }
+
+/* ListWidget */
+ListWidget { background: darkgreen; }
+ListWidget::item { border-radius: 10px; background: rgb(180, 180, 180); }
+
+/* QScrollBar */
+QScrollBar { width: 10px; }
+
+/* MainWindow */
+MainWindow { background-color: darkgray; }
+MainWindow QComboBox { font-size: 25px; }
+MainWindow QLabel#currentTimeLabel { font-size: 25px; }
+
+/* PopupWidget */
+PopupWidget QLabel { color: white; font-size: 12px; margin-top: 3px; margin-bottom: 3px; margin-left: 5px; margin-right: 5px; }
+
+/* QTableView */
+QTableView { selection-background-color: yellow; selection-color: black; }
+
+/* QListView */
+QListView::item:selected { background-color: yellow; color: black; }
+
+/* SubtaskWidget */
+SubtaskWidget EditableLabel QLabel { border-radius: 10px; font-size: 16px; }
+SubtaskWidget EditableLabel QLineEdit { border-radius: 10px; font-size: 16px; }
+SubtaskWidget QCheckBox { border: 0px; }
+SubtaskWidget QCheckBox::indicator { width: 29px; height: 29px; }
+SubtaskWidget QCheckBox::indicator:checked { image: url(:/icons/check.png); }
+SubtaskWidget QCheckBox::indicator:unchecked { image: url(:/icons/pending.png); }
+
+/* TaskWidget */
+TaskWidget QLabel { font-size: 18px; }
+TaskWidget > EditableLabel > QLabel { border-radius: 10px; font-size: 30px; }
+TaskWidget > EditableLabel > QLineEdit { border-radius: 10px; font-size: 30px; }
+
+/* NoteWidget */
+NoteWidget EditableTextBlock QLabel { border-radius: 10px; font-size: 25px; background-color: lightgray; }
+NoteWidget EditableTextBlock QTextEdit { border-radius: 10px; font-size: 25px; background-color: lightgray; }
+
+/* ProductWidget */
+ProductWidget EditableLabel QLabel { border-radius: 10px; font-size: 20px; }
+ProductWidget EditableLabel QLineEdit { border-radius: 10px; font-size: 20px; }
+

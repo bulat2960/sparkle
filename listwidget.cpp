@@ -4,16 +4,17 @@
 
 ListWidget::ListWidget(QWidget* parent) : QListWidget(parent)
 {
+    setSpacing(5);
+
     verticalScrollBar()->hide();
-    verticalScrollBar()->setStyleSheet("QScrollBar { width: 0px; }");
 
     setSelectionMode(QListWidget::NoSelection);
     setContextMenuPolicy(Qt::CustomContextMenu);
 
-    setSortingEnabled(true);
+    setVerticalScrollMode(ListWidget::ScrollPerPixel);
 
-    setStyleSheet("ListWidget { background: darkgreen; }"
-                  "ListWidget::item { border-radius: 10px; background: rgb(180, 180, 180); }");
+    m_scrollAnimation = new QPropertyAnimation(verticalScrollBar(), "value", this);
+    m_scrollAnimation->setDuration(50);
 
     connect(this, &ListWidget::customContextMenuRequested, this, &ListWidget::showContextMenu);
 }
@@ -37,10 +38,29 @@ void ListWidget::sort()
     sortItems();
 }
 
+void ListWidget::updateGeometries()
+{
+    QListView::updateGeometries();
+    verticalScrollBar()->setSingleStep(1);
+}
+
 void ListWidget::mousePressEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::RightButton)
     {
         m_lastClickedItem = dynamic_cast<ListWidgetItem*>(itemAt(event->pos()));
     }
+}
+
+void ListWidget::wheelEvent(QWheelEvent* event)
+{
+    int direction = event->angleDelta().y() < 0 ? 100 : -100;
+
+    if (m_scrollAnimation->state() == QPropertyAnimation::Running)
+    {
+        m_scrollAnimation->stop();
+    }
+    m_scrollAnimation->setStartValue(verticalScrollBar()->value());
+    m_scrollAnimation->setEndValue(verticalScrollBar()->value() + direction);
+    m_scrollAnimation->start();
 }

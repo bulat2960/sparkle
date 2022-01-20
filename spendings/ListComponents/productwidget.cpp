@@ -2,7 +2,7 @@
 
 #include <QHBoxLayout>
 
-static const int textSize = 20;
+static const int lineHeight = 25;
 
 ProductWidget::ProductWidget(Product* product, QWidget* parent)
     : QWidget(parent),
@@ -11,16 +11,16 @@ ProductWidget::ProductWidget(Product* product, QWidget* parent)
     auto mainLayout = new QHBoxLayout(this);
 
     m_categoryEditableLabel = new EditableLabel(product->category(), Qt::AlignCenter, this);
-    m_categoryEditableLabel->setFontSize(textSize);
     m_categoryEditableLabel->setColor("lightgray");
+    m_categoryEditableLabel->setMinimumHeight(lineHeight);
 
     m_nameEditableLabel = new EditableLabel(product->name(), Qt::AlignCenter, this);
-    m_nameEditableLabel->setFontSize(textSize);
     m_nameEditableLabel->setColor("darkgray");
+    m_nameEditableLabel->setMinimumHeight(lineHeight);
 
     m_priceEditableLabel = new EditableLabel(QString::number(product->price()), Qt::AlignCenter, this);
-    m_priceEditableLabel->setFontSize(textSize);
     m_priceEditableLabel->setColor("lightgreen");
+    m_priceEditableLabel->setMinimumHeight(lineHeight);
 
     mainLayout->addWidget(m_categoryEditableLabel);
     mainLayout->addWidget(m_nameEditableLabel);
@@ -40,9 +40,4 @@ ProductWidget::ProductWidget(Product* product, QWidget* parent)
 Product* ProductWidget::product() const
 {
     return m_product;
-}
-
-ProductWidget::~ProductWidget()
-{
-    m_product->deleteLater();
 }

@@ -9,8 +9,6 @@
 DictionaryWidget::DictionaryWidget(QWidget* parent) : ListWidget(parent)
 {
     m_updateCategoryListDialog = new UpdateCategoryListDialog(this);
-
-    setSpacing(5);
 }
 
 void DictionaryWidget::createDisplayedWidget(WordPair* wordPair)
@@ -26,6 +24,11 @@ void DictionaryWidget::createDisplayedWidget(WordPair* wordPair)
 
     connect(wordPair, &WordPair::categoryAdded, this, &DictionaryWidget::sort);
     connect(wordPair, &WordPair::categoryRemoved, this, &DictionaryWidget::sort);
+
+    connect(wordPairWidget, &WordPairWidget::destroyed, this, [this, wordPair]
+    {
+        emit wordPairRemoved(wordPair);
+    });
 }
 
 void DictionaryWidget::showContextMenu(const QPoint& point)

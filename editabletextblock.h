@@ -18,7 +18,6 @@ public:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
     void setEditable(bool editable);
-    void setFontSize(int size);
 
     QString text() const;
 
@@ -28,6 +27,7 @@ public slots:
 
 signals:
     void textChanged(const QString& text);
+    void editingFinished();
 
 private:
     QLabel* m_label {nullptr};
@@ -36,11 +36,6 @@ private:
     QStackedLayout* m_stackedLayout {nullptr};
 
     bool m_editable {true};
-
-    int m_fontSize;
-    QString m_colorName;
-
-    void updateStyleSheet();
 };
 
 #endif // EDITABLETEXTBLOCK_H

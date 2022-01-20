@@ -7,7 +7,7 @@
 TaskTrackerWidget::TaskTrackerWidget(QWidget* parent) : QTabWidget(parent)
 {
     m_timerController = new TimerController(this);
-    connect(m_timerController, &TimerController::deadlineNotified, this, &TaskTrackerWidget::notifyAboutTaskDeadline);
+    connect(m_timerController, &TimerController::deadlineNotified, this, &TaskTrackerWidget::popupCreateRequested);
 
     loadData();
 
@@ -17,7 +17,6 @@ TaskTrackerWidget::TaskTrackerWidget(QWidget* parent) : QTabWidget(parent)
     m_oneTimeTasksWidget = new TaskListWidget(TaskListWidget::Type::OneTime);
     setupTaskListWidget(m_oneTimeTasksWidget, QStringLiteral("One-time"));
 
-    setStyleSheet("QTabBar::tab { font-size: 20px; }");
     tabBar()->setDocumentMode(true);
 
     for (Task* task : m_tasks)
@@ -43,6 +42,7 @@ void TaskTrackerWidget::setupTaskListWidget(TaskListWidget* taskListWidget, cons
     addTab(taskListWidget, tabName);
 
     connect(taskListWidget, &TaskListWidget::taskCreated, this, &TaskTrackerWidget::appendTask);
+    connect(taskListWidget, &TaskListWidget::taskRemoved, this, &TaskTrackerWidget::removeTask);
 }
 
 void TaskTrackerWidget::appendTask(Task* task)
@@ -84,24 +84,13 @@ void TaskTrackerWidget::appendTask(Task* task)
     }
 
     m_tasks.append(task);
-
-    connect(task, &Task::destroyed, this, [this, task]
-    {
-        removeTask(task);
-    });
 }
 
 void TaskTrackerWidget::removeTask(Task* task)
 {
     m_tasks.removeOne(task);
     m_timerController->unregisterTask(task);
-}
-
-void TaskTrackerWidget::notifyAboutTaskDeadline(Task* task)
-{
-    QString header = QStringLiteral("Deadline!");
-    QString message = task->name();
-    emit popupCreateRequested(header, message);
+    task->deleteLater();
 }
 
 void TaskTrackerWidget::loadData()
