@@ -10,14 +10,14 @@ EnglishWidget::EnglishWidget(QWidget* parent) : QTabWidget(parent)
 {
     loadData();
 
-    m_dictionaryWidget = new DictionaryWidget;
+    m_dictionaryWidget = new DictionaryWidget(this);
     addTab(m_dictionaryWidget, "Dictionary");
 
-    m_timedTestWidget = new TimedTestWidget;
+    m_timedTestWidget = new TimedTestWidget(this);
     addTab(m_timedTestWidget, "Timed test");
     connect(m_timedTestWidget, &TimedTestWidget::testDataRequested, this, &EnglishWidget::prepareTestData);
 
-    m_analyticsWidget = new EnglishAnalyticsWidget;
+    m_analyticsWidget = new EnglishAnalyticsWidget(this);
     addTab(m_analyticsWidget, "Analytics");
 
     tabBar()->setDocumentMode(true);
@@ -68,7 +68,7 @@ void EnglishWidget::prepareTestData(const QString& category)
 
     for (auto wordPair : m_wordPairs)
     {
-        if (wordPair->categories().contains(category))
+        if (wordPair->hasCategory(category))
         {
             wordPairs.append(wordPair);
         }

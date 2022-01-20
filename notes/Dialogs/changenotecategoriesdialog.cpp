@@ -20,10 +20,10 @@ ChangeNoteCategoriesDialog::ChangeNoteCategoriesDialog(Note* note, QWidget* pare
 
     auto controlsLayout = new QHBoxLayout;
 
-    m_categoryLineEdit = new QLineEdit;
+    m_categoryLineEdit = new QLineEdit(this);
     m_categoryLineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    auto createButton = new QPushButton("Create");
+    auto createButton = new QPushButton("Create", this);
     createButton->setEnabled(false);
     connect(m_categoryLineEdit, &QLineEdit::textChanged, createButton, [createButton](const QString& text)
     {
@@ -33,7 +33,7 @@ ChangeNoteCategoriesDialog::ChangeNoteCategoriesDialog(Note* note, QWidget* pare
     controlsLayout->addWidget(m_categoryLineEdit);
     controlsLayout->addWidget(createButton);
 
-    m_existingCategoriesGroupBox = new QGroupBox("Choose categories");
+    m_existingCategoriesGroupBox = new QGroupBox("Choose categories", this);
 
     QStringList existingCategories = NoteCategorySelector::instance().existingCategories();
 
@@ -47,14 +47,12 @@ ChangeNoteCategoriesDialog::ChangeNoteCategoriesDialog(Note* note, QWidget* pare
 
         if (categories.contains(category))
         {
-            QMessageBox box;
-            box.setText("This category already exists");
-            box.exec();
+            QMessageBox::information(this, "Information", "This category already exists.");
             return;
         }
 
         int buttonsCount = m_checkBoxLayout->count();
-        auto checkBox = new QCheckBox(category);
+        auto checkBox = new QCheckBox(category, this);
         m_checkBoxLayout->addWidget(checkBox, buttonsCount / 3, buttonsCount % 3);
         m_categoryCheckBoxes.append(checkBox);
         NoteCategorySelector::instance().addCategory(category);
@@ -64,8 +62,8 @@ ChangeNoteCategoriesDialog::ChangeNoteCategoriesDialog(Note* note, QWidget* pare
     {
         QString category = existingCategories[i];
 
-        auto checkBox = new QCheckBox(category);
-        checkBox->setChecked(note->categories().contains(category));
+        auto checkBox = new QCheckBox(category, this);
+        checkBox->setChecked(note->hasCategory(category));
 
         m_categoryCheckBoxes.append(checkBox);
         m_checkBoxLayout->addWidget(checkBox, i / 3, i % 3);

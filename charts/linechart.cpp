@@ -2,16 +2,16 @@
 
 LineChart::LineChart(const QString &title, const QStringList& labels, const QList<int>& borders) : CustomChart(title)
 {
-    m_lineSeries = new QLineSeries;
+    m_lineSeries = new QLineSeries(this);
     addSeries(m_lineSeries);
 
     if (labels.isEmpty())
     {
-        m_xAxis = new QValueAxis;
+        m_xAxis = new QValueAxis(this);
     }
     else
     {
-        auto categoryAxis = new QCategoryAxis;
+        auto categoryAxis = new QCategoryAxis(this);
 
         for (int i = 0; i < labels.size(); i++)
         {
@@ -23,7 +23,7 @@ LineChart::LineChart(const QString &title, const QStringList& labels, const QLis
 
     addAxis(m_xAxis, Qt::AlignBottom);
 
-    m_yAxis = new QValueAxis;
+    m_yAxis = new QValueAxis(this);
     m_yAxis->setMax(100);
     addAxis(m_yAxis, Qt::AlignLeft);
 

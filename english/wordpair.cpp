@@ -30,6 +30,11 @@ QStringList WordPair::categories() const
     return m_categories;
 }
 
+bool WordPair::hasCategory(const QString& category) const
+{
+    return m_categories.contains(category);
+}
+
 double WordPair::learningQuality() const
 {
     return m_learningQuality;

@@ -43,7 +43,7 @@ QScrollBar { width: 10px; }
 
 /* MainWindow */
 MainWindow { background-color: darkgray; }
-MainWindow QComboBox { font-size: 25px; }
+MainWindow > QComboBox { font-size: 25px; }
 MainWindow QLabel#currentTimeLabel { font-size: 25px; }
 
 /* PopupWidget */

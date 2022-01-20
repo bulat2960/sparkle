@@ -13,17 +13,17 @@ WordPairWidget::WordPairWidget(WordPair* wordPair, QWidget* parent)
     : QWidget(parent),
      m_wordPair(wordPair)
 {
-    m_englishEditableLabel = new EditableLabel(wordPair->englishWord(), Qt::AlignCenter);
+    m_englishEditableLabel = new EditableLabel(wordPair->englishWord(), Qt::AlignCenter, this);
     setupEditableLabel(m_englishEditableLabel, QStringLiteral("orange"));
 
-    m_russianEditableLabel = new EditableLabel(wordPair->russianWord(), Qt::AlignCenter);
+    m_russianEditableLabel = new EditableLabel(wordPair->russianWord(), Qt::AlignCenter, this);
     setupEditableLabel(m_russianEditableLabel, QStringLiteral("lightblue"));
 
     auto bookButton = new QPushButton(this);
     bookButton->setIcon(QIcon(":/icons/book.png"));
     bookButton->setObjectName("bookButton");
 
-    m_learningQualityLabel = new QLabel(QStringLiteral("%1%").arg(wordPair->learningQuality()));
+    m_learningQualityLabel = new QLabel(QStringLiteral("%1%").arg(wordPair->learningQuality()), this);
     m_learningQualityLabel->setAlignment(Qt::AlignCenter);
     m_learningQualityLabel->setObjectName("learningQualityLabel");
     connect(wordPair, &WordPair::learningQualityChanged, m_learningQualityLabel, [this](double learningQuality)
@@ -42,7 +42,7 @@ WordPairWidget::WordPairWidget(WordPair* wordPair, QWidget* parent)
     editableLabelsLayout->addWidget(m_russianEditableLabel);
 
 
-    auto addCategoryButton = new QPushButton;
+    auto addCategoryButton = new QPushButton(this);
     addCategoryButton->setIcon(QIcon(":/icons/add.png"));
     addCategoryButton->setObjectName("addCategoryButton");
     connect(addCategoryButton, &QPushButton::released, this, &WordPairWidget::openAddCategoryDialog);

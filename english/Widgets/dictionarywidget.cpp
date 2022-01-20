@@ -13,7 +13,7 @@ DictionaryWidget::DictionaryWidget(QWidget* parent) : ListWidget(parent)
 
 void DictionaryWidget::createDisplayedWidget(WordPair* wordPair)
 {
-    auto wordPairWidget = new WordPairWidget(wordPair);
+    auto wordPairWidget = new WordPairWidget(wordPair, this);
     auto item = new WordPairWidgetItem(wordPairWidget, this);
     setItemWidget(item, wordPairWidget);
 

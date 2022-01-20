@@ -11,7 +11,7 @@ ChangeWordPairCategoriesDialog::ChangeWordPairCategoriesDialog(WordPair* wordPai
 
     m_wordPair = wordPair;
 
-    m_existingCategoriesGroupBox = new QGroupBox("Choose categories");
+    m_existingCategoriesGroupBox = new QGroupBox("Choose categories", this);
 
     QStringList existingCategories = CategoryColorSelector::instance().existingCategories();
 
@@ -21,8 +21,8 @@ ChangeWordPairCategoriesDialog::ChangeWordPairCategoriesDialog(WordPair* wordPai
     {
         QString category = existingCategories[i];
 
-        auto checkBox = new QCheckBox(category);
-        checkBox->setChecked(wordPair->categories().contains(category));
+        auto checkBox = new QCheckBox(category, this);
+        checkBox->setChecked(wordPair->hasCategory(category));
 
         m_categoryCheckBoxes.append(checkBox);
         m_checkBoxLayout->addWidget(checkBox, i / 3, i % 3);

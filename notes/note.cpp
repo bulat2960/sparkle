@@ -21,6 +21,11 @@ QStringList Note::categories() const
     return m_categories;
 }
 
+bool Note::hasCategory(const QString& category) const
+{
+    return m_categories.contains(category);
+}
+
 QDateTime Note::lastUpdateDateTime() const
 {
     return m_lastUpdateDateTime;

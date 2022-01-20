@@ -18,24 +18,24 @@ UpdateCategoryListDialog::UpdateCategoryListDialog(QWidget* parent) : QDialog(pa
     auto mainLayout = new QVBoxLayout(this);
 
 
-    m_listWidget = new QListWidget;
+    m_listWidget = new QListWidget(this);
     m_listWidget->setSelectionMode(QListWidget::NoSelection);
     m_listWidget->setEditTriggers(QListWidget::NoEditTriggers);
 
     auto existingCategoriesLayout = new QVBoxLayout;
     existingCategoriesLayout->addWidget(m_listWidget);
 
-    auto existingCategoriesGroup = new QGroupBox("Existing categories");
+    auto existingCategoriesGroup = new QGroupBox("Existing categories", this);
     existingCategoriesGroup->setLayout(existingCategoriesLayout);
 
 
-    m_categoryLineEdit = new QLineEdit;
+    m_categoryLineEdit = new QLineEdit(this);
     m_categoryLineEdit->setPlaceholderText("New category name");
 
-    m_colorComboBox = new QComboBox;
+    m_colorComboBox = new QComboBox(this);
     m_colorComboBox->addItems(CategoryColorSelector::instance().unusedColors());
 
-    m_addButton = new QPushButton("Add");
+    m_addButton = new QPushButton("Add", this);
     connect(m_addButton, &QPushButton::clicked, this, &UpdateCategoryListDialog::addCategory);
 
     auto createCategoryLayout = new QHBoxLayout;
@@ -43,20 +43,20 @@ UpdateCategoryListDialog::UpdateCategoryListDialog(QWidget* parent) : QDialog(pa
     createCategoryLayout->addWidget(m_colorComboBox, 1);
     createCategoryLayout->addWidget(m_addButton, 1);
 
-    auto createCategoryGroup = new QGroupBox("Create category");
+    auto createCategoryGroup = new QGroupBox("Create category", this);
     createCategoryGroup->setLayout(createCategoryLayout);
 
 
-    m_removeCategoryComboBox = new QComboBox;
+    m_removeCategoryComboBox = new QComboBox(this);
 
-    m_removeButton = new QPushButton("Remove");
+    m_removeButton = new QPushButton("Remove", this);
     connect(m_removeButton, &QPushButton::clicked, this, &UpdateCategoryListDialog::removeCategory);
 
     auto removeCategoryLayout = new QHBoxLayout;
     removeCategoryLayout->addWidget(m_removeCategoryComboBox, 4);
     removeCategoryLayout->addWidget(m_removeButton, 1);
 
-    auto removeCategoryGroup = new QGroupBox("Remove category");
+    auto removeCategoryGroup = new QGroupBox("Remove category", this);
     removeCategoryGroup->setLayout(removeCategoryLayout);
 
 
@@ -97,14 +97,11 @@ void UpdateCategoryListDialog::removeCategory()
 
     QString category = m_removeCategoryComboBox->currentText();
 
-    QMessageBox box;
-    box.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-    box.setText(QStringLiteral("Are you sure you want to remove category '%1'?\n"
-                               "There may be entities that use this category.").arg(category));
+    int code = QMessageBox::question(this, "Remove category",
+                                     QStringLiteral("Are you sure you want to remove category '%1'?\n"
+                                                    "There may be entities that use this category.").arg(category));
 
-    int code = box.exec();
-
-    if (code == QMessageBox::Cancel)
+    if (code == QMessageBox::No)
     {
         return;
     }

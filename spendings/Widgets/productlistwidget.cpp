@@ -15,7 +15,7 @@ ProductListWidget::ProductListWidget(QWidget* parent) : ListWidget(parent)
 
 void ProductListWidget::createDisplayedWidget(Product* product)
 {
-    auto productWidget = new ProductWidget(product);
+    auto productWidget = new ProductWidget(product, this);
     auto item = new ProductWidgetItem(productWidget, this);
     setItemWidget(item, productWidget);
 

@@ -20,10 +20,10 @@ CreateTaskDialog::CreateTaskDialog(TaskListWidget::Type type, QWidget* parent)
     m_taskNameLineEdit = new QLineEdit(this);
 
     auto inputTaskNameLayout = new QHBoxLayout;
-    inputTaskNameLayout->addWidget(new QLabel("Task name:"), 1);
+    inputTaskNameLayout->addWidget(new QLabel("Task name:", this), 1);
     inputTaskNameLayout->addWidget(m_taskNameLineEdit, 4);
 
-    auto acceptButton = new QPushButton("Create");
+    auto acceptButton = new QPushButton("Create", this);
     acceptButton->setDisabled(true);
     connect(m_taskNameLineEdit, &QLineEdit::textChanged, acceptButton, [acceptButton](const QString& text)
     {
@@ -36,16 +36,16 @@ CreateTaskDialog::CreateTaskDialog(TaskListWidget::Type type, QWidget* parent)
     connect(buttonBox, &QDialogButtonBox::rejected, this, &CreateTaskDialog::reject);
 
 
-    QPushButton* controlButton = nullptr;
+    auto controlButton = new QPushButton(this);
 
     if (type == TaskListWidget::Type::OneTime)
     {
-        controlButton = new QPushButton("Set deadline");
+        controlButton->setText("Set deadline");
         connect(controlButton, &QPushButton::clicked, this, &CreateTaskDialog::setDeadline);
     }
     else
     {
-        controlButton  = new QPushButton("Set periodicity");
+        controlButton->setText("Set periodicity");
         connect(controlButton, &QPushButton::clicked, this, &CreateTaskDialog::setPeriodicity);
     }
 
@@ -59,9 +59,7 @@ void CreateTaskDialog::setDeadline()
 {
     if (m_taskNameLineEdit->text().isEmpty())
     {
-        QMessageBox box;
-        box.setText("Please enter new task name");
-        box.exec();
+        QMessageBox::question(this, "Task name required", "Please enter new task name.");
         return;
     }
 
@@ -79,9 +77,7 @@ void CreateTaskDialog::setPeriodicity()
 {
     if (m_taskNameLineEdit->text().isEmpty())
     {
-        QMessageBox box;
-        box.setText("Please enter new task name");
-        box.exec();
+        QMessageBox::question(this, "Task name required", "Please enter new task name.");
         return;
     }
 

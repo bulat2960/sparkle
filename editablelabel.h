@@ -13,6 +13,7 @@ class EditableLabel : public QWidget
     Q_OBJECT
 
 public:
+    EditableLabel(const QString& text = QString(), QWidget* parent = nullptr);
     EditableLabel(const QString& text = QString(), Qt::Alignment alignment = Qt::AlignLeft | Qt::AlignVCenter, QWidget* parent = nullptr);
 
     bool eventFilter(QObject* watched, QEvent* event);

@@ -14,20 +14,20 @@ CreateWordPairDialog::CreateWordPairDialog(QWidget* parent) : QDialog(parent)
     auto mainLayout = new QVBoxLayout(this);
 
 
-    m_englishLineEdit = new QLineEdit;
+    m_englishLineEdit = new QLineEdit(this);
     m_englishLineEdit->setPlaceholderText("Type english word");
 
-    m_russianLineEdit = new QLineEdit;
+    m_russianLineEdit = new QLineEdit(this);
     m_russianLineEdit->setPlaceholderText("Type russian word");
 
     auto inputGridLayout = new QGridLayout;
-    inputGridLayout->addWidget(new QLabel("English:"), 0, 0);
+    inputGridLayout->addWidget(new QLabel("English:", this), 0, 0);
     inputGridLayout->addWidget(m_englishLineEdit, 0, 1);
-    inputGridLayout->addWidget(new QLabel("Russian:"), 1, 0);
+    inputGridLayout->addWidget(new QLabel("Russian:", this), 1, 0);
     inputGridLayout->addWidget(m_russianLineEdit, 1, 1);
 
 
-    auto existingCategoriesGroupBox = new QGroupBox("Choose categories");
+    auto existingCategoriesGroupBox = new QGroupBox("Choose categories", this);
 
     QStringList existingCategories = CategoryColorSelector::instance().existingCategories();
 
@@ -38,7 +38,7 @@ CreateWordPairDialog::CreateWordPairDialog(QWidget* parent) : QDialog(parent)
     {
         QString category = existingCategories[i];
 
-        auto checkBox = new QCheckBox(category);
+        auto checkBox = new QCheckBox(category, this);
         m_categoryCheckBoxes.append(checkBox);
         categoriesGridLayout->addWidget(checkBox, i / 3, i % 3);
     }
@@ -58,10 +58,7 @@ void CreateWordPairDialog::accept()
 {
     if (m_englishLineEdit->text().isEmpty() or m_russianLineEdit->text().isEmpty())
     {
-        QMessageBox box;
-        box.setText("Please, fill in all fields.");
-        box.exec();
-
+        QMessageBox::warning(this, "Warning!", "Please, fill in all fields.");
         return;
     }
 

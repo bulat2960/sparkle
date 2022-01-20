@@ -27,7 +27,7 @@ MainWindow::MainWindow()
 
 void MainWindow::setupControlLayout()
 {
-    m_minimizeButton = new QPushButton;
+    m_minimizeButton = new QPushButton(this);
     m_minimizeButton->setFixedSize(hideButtonSize, hideButtonSize);
     m_minimizeButton->setIconSize(QSize(hideButtonSize, hideButtonSize));
     m_minimizeButton->setIcon(QIcon(":/icons/close_black.png"));
@@ -47,7 +47,7 @@ void MainWindow::setupControlLayout()
         m_currentTimeLabel->setText(QTime::currentTime().toString("hh:mm:ss"));
     });
 
-    m_chooseActivityBox = new QComboBox;
+    m_chooseActivityBox = new QComboBox(this);
     m_chooseActivityBox->setMinimumWidth(500);
     m_chooseActivityBox->addItems({"English training", "Tasktracker", "Notes", "Spendings"});
     connect(m_chooseActivityBox, &QComboBox::currentIndexChanged, this, &MainWindow::changeActiveWidget);
@@ -62,7 +62,7 @@ void MainWindow::setupControlLayout()
 
 void MainWindow::setupStackedLayout()
 {
-    m_stackedLayout = new QStackedLayout;
+    m_stackedLayout = new QStackedLayout(this);
 
     m_englishWidget = new EnglishWidget(this);
     m_stackedLayout->addWidget(m_englishWidget);

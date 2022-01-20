@@ -3,15 +3,15 @@
 #include <QVBoxLayout>
 #include <QKeyEvent>
 
-EditableLabel::EditableLabel(const QString& text, Qt::Alignment alignment, QWidget* parent) : QWidget(parent)
+EditableLabel::EditableLabel(const QString& text, QWidget* parent) : QWidget(parent)
 {
     m_label = new QLabel(text, this);
-    m_label->setAlignment(alignment);
+    m_label->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     m_label->setWordWrap(true);
     m_label->setContentsMargins(10, 0, 10, 0);
 
     m_lineEdit = new QLineEdit(text, this);
-    m_lineEdit->setAlignment(alignment);
+    m_lineEdit->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     connect(m_lineEdit, &QLineEdit::textChanged, this, &EditableLabel::textChanged);
 
@@ -25,6 +25,12 @@ EditableLabel::EditableLabel(const QString& text, Qt::Alignment alignment, QWidg
     m_lineEdit->installEventFilter(this);
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
+
+EditableLabel::EditableLabel(const QString& text, Qt::Alignment alignment, QWidget* parent) : EditableLabel(text, parent)
+{
+    m_label->setAlignment(alignment);
+    m_lineEdit->setAlignment(alignment);
 }
 
 void EditableLabel::setColor(const QString& colorName)

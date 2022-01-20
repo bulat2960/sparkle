@@ -10,21 +10,21 @@ CreateProductDialog::CreateProductDialog(QWidget* parent) : QDialog(parent)
 
     auto layout = new QVBoxLayout(this);
 
-    m_categoryLineEdit = new QLineEdit;
+    m_categoryLineEdit = new QLineEdit(this);
     m_categoryLineEdit->setPlaceholderText("Enter product category");
     connect(m_categoryLineEdit, &QLineEdit::textChanged, this, &CreateProductDialog::checkIfCreateEnabled);
 
-    m_nameLineEdit = new QLineEdit;
+    m_nameLineEdit = new QLineEdit(this);
     m_nameLineEdit->setPlaceholderText("Enter product name");
     connect(m_nameLineEdit, &QLineEdit::textChanged, this, &CreateProductDialog::checkIfCreateEnabled);
 
-    m_priceLineEdit = new QLineEdit;
+    m_priceLineEdit = new QLineEdit(this);
     m_priceLineEdit->setPlaceholderText("Enter price");
     connect(m_priceLineEdit, &QLineEdit::textChanged, this, &CreateProductDialog::checkIfCreateEnabled);
 
     m_calendarWidget = new QCalendarWidget(this);
 
-    m_acceptButton = new QPushButton("Create");
+    m_acceptButton = new QPushButton("Create", this);
 
     auto buttonBox = new QDialogButtonBox(QDialogButtonBox::Cancel, this);
     buttonBox->addButton(m_acceptButton, QDialogButtonBox::AcceptRole);

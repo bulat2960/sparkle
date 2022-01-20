@@ -11,10 +11,10 @@ TaskTrackerWidget::TaskTrackerWidget(QWidget* parent) : QTabWidget(parent)
 
     loadData();
 
-    m_repeatableTasksWidget = new TaskListWidget(TaskListWidget::Type::Repeatable);
+    m_repeatableTasksWidget = new TaskListWidget(TaskListWidget::Type::Repeatable, this);
     setupTaskListWidget(m_repeatableTasksWidget, QStringLiteral("Repeatable"));
 
-    m_oneTimeTasksWidget = new TaskListWidget(TaskListWidget::Type::OneTime);
+    m_oneTimeTasksWidget = new TaskListWidget(TaskListWidget::Type::OneTime, this);
     setupTaskListWidget(m_oneTimeTasksWidget, QStringLiteral("One-time"));
 
     tabBar()->setDocumentMode(true);

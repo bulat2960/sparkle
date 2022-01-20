@@ -24,7 +24,7 @@ ChooseDateTimeDialog::ChooseDateTimeDialog(QWidget* parent) : QDialog(parent)
     connect(buttonBox, &QDialogButtonBox::accepted, this, &ChooseDateTimeDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &ChooseDateTimeDialog::reject);
 
-    m_clearDateTimeButton = new QPushButton("Clear datetime");
+    m_clearDateTimeButton = new QPushButton("Clear datetime", this);
     connect(m_clearDateTimeButton, &QPushButton::clicked, this, &ChooseDateTimeDialog::clearDateTime);
     m_clearDateTimeButton->hide();
 
@@ -81,8 +81,7 @@ void ChooseDateTimeDialog::accept()
 
     if (not index.isValid())
     {
-        QMessageBox::warning(this, "Warning!", "Please choose date and time",
-                             QMessageBox::StandardButton::Ok);
+        QMessageBox::warning(this, "Warning!", "Please choose date and time.");
         return;
     }
 

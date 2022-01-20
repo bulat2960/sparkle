@@ -72,7 +72,8 @@ void PopupController::movePopups(int popupNumber)
         if (currentWidget != nullptr)
         {
             QRect currentWidgetGeometry = currentWidget->geometry();
-            QRect prevWidgetGeometry = QRect(currentWidgetGeometry.x(), currentWidgetGeometry.y() - popupHeight,
+            QRect prevWidgetGeometry = QRect(currentWidgetGeometry.x(),
+                                             currentWidgetGeometry.y() - popupHeight,
                                              popupWidth, popupHeight);
             currentWidget->startMoveAnimation(prevWidgetGeometry);
         }

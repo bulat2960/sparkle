@@ -10,10 +10,10 @@ CreateNoteDialog::CreateNoteDialog(QWidget* parent) : QDialog(parent)
 
     auto layout = new QVBoxLayout(this);
 
-    m_noteTextEdit = new QTextEdit;
+    m_noteTextEdit = new QTextEdit(this);
     m_noteTextEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_acceptButton = new QPushButton("Create");
+    m_acceptButton = new QPushButton("Create", this);
     connect(m_noteTextEdit, &QTextEdit::textChanged, m_acceptButton, [this]
     {
         m_acceptButton->setEnabled(not m_noteTextEdit->toPlainText().isEmpty());
@@ -24,7 +24,7 @@ CreateNoteDialog::CreateNoteDialog(QWidget* parent) : QDialog(parent)
     connect(buttonBox, &QDialogButtonBox::accepted, this, &CreateNoteDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &CreateNoteDialog::reject);
 
-    auto label = new QLabel("New note text:");
+    auto label = new QLabel("New note text:", this);
     label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     layout->addWidget(label);

@@ -10,12 +10,12 @@ SpendingsWidget::SpendingsWidget(QWidget *parent) : QTabWidget(parent)
 {
     loadData();
 
-    m_productListWidget = new ProductListWidget;
+    m_productListWidget = new ProductListWidget(this);
     addTab(m_productListWidget, "Spendings");
     connect(m_productListWidget, &ProductListWidget::productCreated, this, &SpendingsWidget::addProduct);
     connect(m_productListWidget, &ProductListWidget::productRemoved, this, &SpendingsWidget::removeProduct);
 
-    m_analyticsWidget = new SpendingsAnalyticsWidget;
+    m_analyticsWidget = new SpendingsAnalyticsWidget(this);
     addTab(m_analyticsWidget, "Analytics");
 
     tabBar()->setDocumentMode(true);

@@ -14,7 +14,7 @@ NotesListWidget::NotesListWidget(QWidget* parent) : ListWidget(parent)
 
 void NotesListWidget::createDisplayedWidget(Note* note)
 {
-    auto noteWidget = new NoteWidget(note);
+    auto noteWidget = new NoteWidget(note, this);
     auto item = new NoteWidgetItem(noteWidget, this);
     setItemWidget(item, noteWidget);
 

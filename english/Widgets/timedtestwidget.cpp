@@ -27,23 +27,23 @@ void TimedTestWidget::setupSettingsWidget()
 
     QStringList existingCategories = CategoryColorSelector::instance().existingCategories();
 
-    auto categoriesComboBox = new QComboBox;
+    auto categoriesComboBox = new QComboBox(this);
     categoriesComboBox->addItems(existingCategories);
 
-    auto categorySelectLabel = new QLabel("Choose testing category:");
+    auto categorySelectLabel = new QLabel("Choose testing category:", this);
     categorySelectLabel->setObjectName("categorySelectLabel");
     categorySelectLabel->setAlignment(Qt::AlignCenter);
 
-    auto startButton = new QPushButton("Start");
+    auto startButton = new QPushButton("Start", this);
     startButton->setObjectName("startButton");
 
     auto settingsLayout = new QVBoxLayout;
-    settingsLayout->addWidget(new QWidget, 10);
+    settingsLayout->addWidget(new QWidget(this), 10);
     settingsLayout->addWidget(categorySelectLabel);
     settingsLayout->addWidget(categoriesComboBox);
-    settingsLayout->addWidget(new QWidget, 10);
+    settingsLayout->addWidget(new QWidget(this), 10);
     settingsLayout->addWidget(startButton);
-    settingsLayout->addWidget(new QWidget, 10);
+    settingsLayout->addWidget(new QWidget(this), 10);
 
     connect(startButton, &QPushButton::clicked, this, [this, categoriesComboBox]
     {
@@ -59,7 +59,7 @@ void TimedTestWidget::setupTestWidget()
 {
     m_testWidget = new QWidget(this);
 
-    auto timerLabel = new QLabel(QString::number(m_remainingSeconds));
+    auto timerLabel = new QLabel(QString::number(m_remainingSeconds), this);
     timerLabel->setObjectName("timerLabel");
     timerLabel->setAlignment(Qt::AlignHCenter);
 
@@ -78,21 +78,21 @@ void TimedTestWidget::setupTestWidget()
         }
     });
 
-    m_answerLabel = new QLabel;
+    m_answerLabel = new QLabel(this);
     m_answerLabel->setObjectName("answerLabel");
     m_answerLabel->setAlignment(Qt::AlignCenter);
 
-    auto stopTestButton = new QPushButton("Stop test");
+    auto stopTestButton = new QPushButton("Stop test", this);
     stopTestButton->setObjectName("stopTestButton");
     connect(stopTestButton, &QPushButton::clicked, this, &TimedTestWidget::stopTest);
 
     auto testLayout = new QVBoxLayout;
     testLayout->addWidget(timerLabel, 1);
-    testLayout->addWidget(new QWidget, 10);
+    testLayout->addWidget(new QWidget(this), 10);
     testLayout->addWidget(m_answerLabel);
     for (int i = 0; i < answerButtonsNumber; i++)
     {
-        auto answerButton = new QPushButton;
+        auto answerButton = new QPushButton(this);
         answerButton->setObjectName("answerButton");
         testLayout->addWidget(answerButton, 1);
         connect(answerButton, &QPushButton::clicked, this, [this]
@@ -103,7 +103,7 @@ void TimedTestWidget::setupTestWidget()
         });
         m_answerButtons.append(answerButton);
     }
-    testLayout->addWidget(new QWidget, 10);
+    testLayout->addWidget(new QWidget(this), 10);
     testLayout->addWidget(stopTestButton);
 
     m_testWidget->setLayout(testLayout);
@@ -117,15 +117,15 @@ void TimedTestWidget::setupResultWidget()
 
     auto resultLayout = new QVBoxLayout;
 
-    auto label = new QLabel("Results");
+    auto label = new QLabel("Results", this);
     label->setObjectName("resultsLabel");
     label->setAlignment(Qt::AlignHCenter);
 
-    m_wrongAnswersLabel = new QLabel;
+    m_wrongAnswersLabel = new QLabel(this);
     m_wrongAnswersLabel->setObjectName("wrongAnswersLabel");
     m_wrongAnswersLabel->setAlignment(Qt::AlignCenter);
 
-    auto finishTestButton = new QPushButton("Finish test");
+    auto finishTestButton = new QPushButton("Finish test", this);
     finishTestButton->setObjectName("finishTestButton");
     connect(finishTestButton, &QPushButton::clicked, this, [this]
     {
@@ -259,10 +259,7 @@ void TimedTestWidget::setTestData(const QList<WordPair*>& wordPairs)
 
     if (m_testWordPairs.size() < 4)
     {
-        QMessageBox box;
-        box.setText("Too little data to start the test.\n"
-                    "Please choose another category.");
-        box.exec();
+        QMessageBox::information(this, "Too little data", "Too little data to start the test.\nPlease choose another category.");
         return;
     }
     startTest();

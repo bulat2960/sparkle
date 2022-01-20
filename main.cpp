@@ -11,14 +11,17 @@ void initStyleSheet(QApplication *app)
 {
     QFile styleFile(":/styles/styles.css");
 
-    if (styleFile.open(QIODevice::ReadOnly)) {
+    if (styleFile.open(QIODevice::ReadOnly))
+    {
         QTextStream textStream(&styleFile);
         QString styleSheet = textStream.readAll();
         styleFile.close();
+
         app->setStyleSheet(styleSheet);
-        //app->setFont(QFont("Liberation sans"));
-    } else {
-        qDebug() << "Can't open file";
+    }
+    else
+    {
+        qDebug() << "Can't open stylesheet file";
     }
 }
 
@@ -55,9 +58,7 @@ int main(int argc, char *argv[])
 
     initStyleSheet(&a);
 
-
     trayIcon.show();
-    //mainWindow.showFullScreen();
 
     return a.exec();
 }

@@ -107,13 +107,10 @@ void TaskListWidget::removeObject()
 
     if (task->status() == Task::Status::Pending and task->subtasks().size() > 0)
     {
-        QMessageBox box;
-        box.setText("This task has unfinished subtasks. Do you really want to delete it?");
-        box.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        int result = QMessageBox::question(this, "Delete task",
+                                           "This task has unfinished subtasks. Do you really want to delete it?");
 
-        int result = box.exec();
-
-        if (result == QMessageBox::Cancel)
+        if (result == QMessageBox::No)
         {
             return;
         }

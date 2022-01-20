@@ -18,6 +18,7 @@ public:
 
     QString note() const;
     QStringList categories() const;
+    bool hasCategory(const QString& category) const;
 
     QDateTime lastUpdateDateTime() const;
 

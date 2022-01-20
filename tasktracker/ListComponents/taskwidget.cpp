@@ -28,8 +28,7 @@ TaskWidget::TaskWidget(Task* task, QWidget* parent)
     statusLabelsLayout->setContentsMargins(0, 0, 0, 0);
     statusLabelsLayout->setSpacing(5);
 
-    m_editableLabel = new EditableLabel;
-    m_editableLabel->setText(task->name());
+    m_editableLabel = new EditableLabel(task->name(), this);
     m_editableLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     m_editableLabel->setMinimumWidth(headerHeight);
     m_editableLabel->setFixedHeight(headerHeight);
@@ -72,7 +71,7 @@ TaskWidget::TaskWidget(Task* task, QWidget* parent)
     m_showSubtasksButton->setCheckable(true);
     m_showSubtasksButton->setChecked(false);
 
-    m_addSubtaskButton = new QPushButton;
+    m_addSubtaskButton = new QPushButton(this);
     setupButton(m_addSubtaskButton, "add");
 
     m_deadlineButton = new QPushButton(this);

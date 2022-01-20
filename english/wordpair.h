@@ -22,6 +22,7 @@ public:
     QString russianWord() const;
 
     QStringList categories() const;
+    bool hasCategory(const QString& category) const;
 
     double learningQuality() const;
 

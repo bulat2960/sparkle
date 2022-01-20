@@ -4,7 +4,6 @@ TaskWidgetItem::TaskWidgetItem(TaskWidget* taskWidget, QListWidget* parent)
     : ListWidgetItem(taskWidget, parent)
 {
     m_taskWidget = taskWidget;
-    changeSortingOrder("Status");
 }
 
 bool TaskWidgetItem::operator<(const QListWidgetItem& other) const

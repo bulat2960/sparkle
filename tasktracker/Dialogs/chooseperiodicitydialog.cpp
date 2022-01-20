@@ -7,11 +7,11 @@
 ChoosePeriodicityDialog::ChoosePeriodicityDialog(QWidget* parent) : QDialog(parent)
 {
 
-    auto spacerWidget = new QWidget;
+    auto spacerWidget = new QWidget(this);
     spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    m_acceptButton = new QPushButton("Accept");
-    m_rejectButton = new QPushButton("Reject");
+    m_acceptButton = new QPushButton("Accept", this);
+    m_rejectButton = new QPushButton("Reject", this);
 
     auto buttonBox = new QDialogButtonBox(this);
     buttonBox->addButton(m_acceptButton, QDialogButtonBox::AcceptRole);
@@ -42,13 +42,13 @@ void ChoosePeriodicityDialog::changeCustomPeriodicityLayoutVisibility(QAbstractB
 
 void ChoosePeriodicityDialog::setupRadioButtonsLayout()
 {
-    m_periodicityGroupBox = new QGroupBox("Choose periodicity");
+    m_periodicityGroupBox = new QGroupBox("Choose periodicity", this);
 
-    m_hourButton = new QRadioButton("Hourly");
-    m_dayButton = new QRadioButton("Daily");
-    m_weekButton = new QRadioButton("Weekly");
+    m_hourButton = new QRadioButton("Hourly", this);
+    m_dayButton = new QRadioButton("Daily", this);
+    m_weekButton = new QRadioButton("Weekly", this);
 
-    m_customButton = new QRadioButton("Custom");
+    m_customButton = new QRadioButton("Custom", this);
     connect(m_customButton, &QRadioButton::clicked, this, [this](bool checked)
     {
         m_acceptButton->setEnabled(not checked);
@@ -82,38 +82,38 @@ void ChoosePeriodicityDialog::setupRadioButtonsLayout()
 
 void ChoosePeriodicityDialog::setupCustomPeriodicityLayout()
 {
-    m_customPeriodicityWidget = new QWidget;
+    m_customPeriodicityWidget = new QWidget(this);
 
     auto customPeriodicityLayout = new QGridLayout;
 
-    m_minuteComboBox = new QComboBox;
+    m_minuteComboBox = new QComboBox(this);
     setupComboBox(m_minuteComboBox, 60);
 
-    m_hourComboBox = new QComboBox;
+    m_hourComboBox = new QComboBox(this);
     setupComboBox(m_hourComboBox, 24);
 
-    m_dayComboBox = new QComboBox;
+    m_dayComboBox = new QComboBox(this);
     setupComboBox(m_dayComboBox, 30);
 
-    m_weekComboBox = new QComboBox;
+    m_weekComboBox = new QComboBox(this);
     setupComboBox(m_weekComboBox, 10);
 
-    m_monthComboBox = new QComboBox;
+    m_monthComboBox = new QComboBox(this);
     setupComboBox(m_monthComboBox, 5);
 
-    customPeriodicityLayout->addWidget(new QLabel("Minutes:"), 0, 0);
+    customPeriodicityLayout->addWidget(new QLabel("Minutes:", this), 0, 0);
     customPeriodicityLayout->addWidget(m_minuteComboBox, 0, 1);
 
-    customPeriodicityLayout->addWidget(new QLabel("Hours:"), 1, 0);
+    customPeriodicityLayout->addWidget(new QLabel("Hours:", this), 1, 0);
     customPeriodicityLayout->addWidget(m_hourComboBox, 1, 1);
 
-    customPeriodicityLayout->addWidget(new QLabel("Days:"), 2, 0);
+    customPeriodicityLayout->addWidget(new QLabel("Days:", this), 2, 0);
     customPeriodicityLayout->addWidget(m_dayComboBox, 2, 1);
 
-    customPeriodicityLayout->addWidget(new QLabel("Weeks:"), 3, 0);
+    customPeriodicityLayout->addWidget(new QLabel("Weeks:", this), 3, 0);
     customPeriodicityLayout->addWidget(m_weekComboBox, 3, 1);
 
-    customPeriodicityLayout->addWidget(new QLabel("Months:"), 4, 0);
+    customPeriodicityLayout->addWidget(new QLabel("Months:", this), 4, 0);
     customPeriodicityLayout->addWidget(m_monthComboBox, 4, 1);
 
     m_customPeriodicityWidget->setLayout(customPeriodicityLayout);

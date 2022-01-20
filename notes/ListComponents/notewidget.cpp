@@ -13,14 +13,14 @@ NoteWidget::NoteWidget(Note* note, QWidget* parent)
     : QWidget(parent),
       m_note(note)
 {
-    m_noteEditableTextBlock = new EditableTextBlock(note->note(), Qt::AlignLeft | Qt::AlignTop);
+    m_noteEditableTextBlock = new EditableTextBlock(note->note(), Qt::AlignLeft | Qt::AlignTop, this);
     m_noteEditableTextBlock->setMinimumHeight(textBlockMinimumHeight);
 
-    auto addCategoryButton = new QPushButton;
+    auto addCategoryButton = new QPushButton(this);
     addCategoryButton->setIcon(QIcon(":/icons/add.png"));
     connect(addCategoryButton, &QPushButton::released, this, &NoteWidget::openAddCategoryDialog);
 
-    m_lastUpdateDateTimeLabel = new QLabel(note->lastUpdateDateTime().toString("dd-MM-yyyy hh:mm:ss"));
+    m_lastUpdateDateTimeLabel = new QLabel(note->lastUpdateDateTime().toString("dd-MM-yyyy hh:mm:ss"), this);
     m_lastUpdateDateTimeLabel->setFixedHeight(categoryLabelHeight);
     m_lastUpdateDateTimeLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
@@ -79,7 +79,7 @@ void NoteWidget::updateHeight()
     int mainLayoutMargins = m_mainLayout->contentsMargins().top() + m_mainLayout->contentsMargins().bottom();
     int mainLayoutSpacing = m_mainLayout->spacing();
 
-    int newTextBlockHeight = (lines) * (textSize + 10);
+    int newTextBlockHeight = lines * (textSize + 10);
 
     if (newTextBlockHeight > textBlockMinimumHeight)
     {

@@ -98,6 +98,7 @@ bool EditableTextBlock::eventFilter(QObject* watched, QEvent* event)
             // Write down text when focused out
             setText(m_textEdit->toPlainText().trimmed());
             m_stackedLayout->setCurrentIndex(0);
+            emit editingFinished();
         }
     }
     else if (watched == m_label)

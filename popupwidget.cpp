@@ -18,17 +18,17 @@ PopupWidget::PopupWidget(const QString& header, const QString& message, QWidget*
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_ShowWithoutActivating);
 
-    m_showAnimation = new QPropertyAnimation(this, "popupOpacity");
+    m_showAnimation = new QPropertyAnimation(this, "popupOpacity", this);
     m_showAnimation->setDuration(250);
     m_showAnimation->setStartValue(0);
     m_showAnimation->setEndValue(1);
 
-    m_hideAnimation = new QPropertyAnimation(this, "popupOpacity");
+    m_hideAnimation = new QPropertyAnimation(this, "popupOpacity", this);
     m_hideAnimation->setDuration(500);
     m_hideAnimation->setStartValue(1);
     m_hideAnimation->setEndValue(0);
 
-    m_moveAnimation = new QPropertyAnimation(this, "geometry");
+    m_moveAnimation = new QPropertyAnimation(this, "geometry", this);
     m_moveAnimation->setDuration(200);
 
     m_timer = new QTimer(this);
@@ -55,7 +55,8 @@ PopupWidget::PopupWidget(const QString& header, const QString& message, QWidget*
     closeButton->setIcon(QIcon(":/icons/close_white.png"));
     closeButton->setIconSize(QSize(closeButtonSize, closeButtonSize));
     closeButton->setGeometry(popupWidth - closeButtonSize - closeButtonOffset, closeButtonOffset, closeButtonSize, closeButtonSize);
-    connect(closeButton, &QPushButton::clicked, this, [this] {
+    connect(closeButton, &QPushButton::clicked, this, [this]
+    {
         m_timer->stop();
         m_hideAnimation->start();
     });

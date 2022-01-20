@@ -11,7 +11,7 @@ SubtaskWidget::SubtaskWidget(Task* task, QWidget* parent)
     auto layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
 
-    m_editableLabel = new EditableLabel(task->name());
+    m_editableLabel = new EditableLabel(task->name(), this);
     m_editableLabel->setFixedHeight(lineHeight);
 
     m_checkBox = new QCheckBox(this);
