@@ -28,6 +28,7 @@ public:
 
 public slots:
     void save();
+    void updatePopupsActiveStatus();
 
 private:
     QVBoxLayout* m_mainLayout {nullptr};

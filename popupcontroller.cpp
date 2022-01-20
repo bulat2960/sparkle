@@ -11,9 +11,34 @@ PopupController::PopupController(QWidget *parent) : QObject(parent)
     m_parent = parent;
 }
 
+void PopupController::setActive(bool active)
+{
+    m_active = active;
+}
+
+bool PopupController::isActive() const
+{
+    return m_active;
+}
+
 void PopupController::createPopup(const QString& title, const QString& message)
 {
-    auto popup = initPopup(title, message);
+    if (not m_active)
+    {
+        return;
+    }
+
+    createPopup(title, message, 60);
+}
+
+void PopupController::createPopup(const QString& title, const QString& message, int lifetimeSeconds)
+{
+    if (not m_active)
+    {
+        return;
+    }
+
+    auto popup = initPopup(title, message, lifetimeSeconds);
 
     if (m_popupsList.size() < 3)
     {
@@ -26,11 +51,11 @@ void PopupController::createPopup(const QString& title, const QString& message)
     }
 }
 
-PopupWidget* PopupController::initPopup(const QString& title, const QString& message)
+PopupWidget* PopupController::initPopup(const QString& title, const QString& message, int lifetimeSeconds)
 {
     QSize screenSize = QApplication::primaryScreen()->size();
 
-    auto popup = new PopupWidget(title, message, m_parent);
+    auto popup = new PopupWidget(title, message, lifetimeSeconds, m_parent);
 
     connect(popup, &PopupWidget::finished, this, [this, popup]
     {

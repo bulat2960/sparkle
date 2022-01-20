@@ -9,9 +9,8 @@
 static const int popupWidth = 200;
 static const int closeButtonOffset = 10;
 static const int closeButtonSize = 20;
-static const int popupHideSeconds = 60;
 
-PopupWidget::PopupWidget(const QString& header, const QString& message, QWidget* parent) : QWidget(parent)
+PopupWidget::PopupWidget(const QString& header, const QString& message, int lifetimeSeconds, QWidget* parent) : QWidget(parent)
 {
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::Window);
 
@@ -33,7 +32,7 @@ PopupWidget::PopupWidget(const QString& header, const QString& message, QWidget*
 
     m_timer = new QTimer(this);
     m_timer->setSingleShot(true);
-    m_timer->setInterval(1000 * popupHideSeconds);
+    m_timer->setInterval(1000 * lifetimeSeconds);
 
     connect(m_showAnimation, &QPropertyAnimation::finished, m_timer, QOverload<>::of(&QTimer::start));
     connect(m_hideAnimation, &QPropertyAnimation::finished, this, &PopupWidget::hide);

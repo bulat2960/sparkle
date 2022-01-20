@@ -52,9 +52,11 @@ int main(int argc, char *argv[])
 
     QHotkey showHotkey(QKeySequence("Ctrl+Alt+S"), true, &a);
     QHotkey hideHotkey(QKeySequence("Ctrl+Alt+D"), true, &a);
+    QHotkey activatePopupsHotkey(QKeySequence("Ctrl+Alt+W"), true, &a);
 
     QObject::connect(&showHotkey, &QHotkey::activated, &mainWindow, &MainWindow::showFullScreen);
     QObject::connect(&hideHotkey, &QHotkey::activated, &mainWindow, &MainWindow::hide);
+    QObject::connect(&activatePopupsHotkey, &QHotkey::activated, &mainWindow, &MainWindow::updatePopupsActiveStatus);
 
     initStyleSheet(&a);
 

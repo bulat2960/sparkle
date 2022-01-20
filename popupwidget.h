@@ -13,7 +13,7 @@ class PopupWidget : public QWidget
     Q_PROPERTY(double popupOpacity READ popupOpacity WRITE setPopupOpacity)
 
 public:
-    explicit PopupWidget(const QString& header, const QString& message, QWidget* parent = nullptr);
+    explicit PopupWidget(const QString& header, const QString& message, int lifetimeSeconds, QWidget* parent = nullptr);
 
 public slots:
     void show();

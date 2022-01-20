@@ -21,10 +21,12 @@ MainWindow::MainWindow()
     setFocus();
 
     m_popupController = new PopupController(this);
-    connect(m_taskTrackerWidget, &TaskTrackerWidget::popupCreateRequested, m_popupController, &PopupController::createPopup);
+    connect(m_taskTrackerWidget, &TaskTrackerWidget::popupCreateRequested,
+            m_popupController, QOverload<const QString&, const QString&>::of(&PopupController::createPopup));
 
     m_reminderController = new ReminderController(this);
-    connect(m_reminderController, &ReminderController::reminderCreated, m_popupController, &PopupController::createPopup);
+    connect(m_reminderController, &ReminderController::reminderCreated,
+            m_popupController, QOverload<const QString&, const QString&>::of(&PopupController::createPopup));
 
 
     QDir appDir(QApplication::applicationDirPath());
@@ -92,6 +94,22 @@ void MainWindow::setupStackedLayout()
 void MainWindow::changeActiveWidget()
 {
     m_stackedLayout->setCurrentIndex(m_chooseActivityBox->currentIndex());
+}
+
+void MainWindow::updatePopupsActiveStatus()
+{
+    const int systemPopupLifetime = 3;
+
+    if (m_popupController->isActive())
+    {
+        m_popupController->createPopup("System", "Information: popups deactivated", systemPopupLifetime);
+        m_popupController->setActive(false);
+    }
+    else
+    {
+        m_popupController->setActive(true);
+        m_popupController->createPopup("System", "Information: popups activated", systemPopupLifetime);
+    }
 }
 
 void MainWindow::save()
