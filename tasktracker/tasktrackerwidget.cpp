@@ -95,7 +95,7 @@ void TaskTrackerWidget::removeTask(Task* task)
 
 void TaskTrackerWidget::loadData()
 {
-    QFile file(QApplication::applicationDirPath() + "/todolist.txt");
+    QFile file(QApplication::applicationDirPath() + "/data/todolist.txt");
 
     if (not file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -153,7 +153,7 @@ void TaskTrackerWidget::loadData()
 
 void TaskTrackerWidget::saveData()
 {
-    QFile file(QApplication::applicationDirPath() + "/todolist.txt");
+    QFile file(QApplication::applicationDirPath() + "/data/todolist.txt");
 
     if (not file.open(QIODevice::WriteOnly | QIODevice::Text))
     {

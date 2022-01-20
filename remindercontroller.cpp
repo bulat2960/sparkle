@@ -26,7 +26,7 @@ void ReminderController::setupReminder(int repeatIntervalInMinutes, const QStrin
 
 void ReminderController::loadData()
 {
-    QFile file(QApplication::applicationDirPath() + "/reminders.txt");
+    QFile file(QApplication::applicationDirPath() + "/data/reminders.txt");
 
     if (not file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -55,7 +55,7 @@ void ReminderController::loadData()
 
 void ReminderController::saveData()
 {
-    QFile file(QApplication::applicationDirPath() + "/reminders.txt");
+    QFile file(QApplication::applicationDirPath() + "/data/reminders.txt");
 
     if (not file.open(QIODevice::WriteOnly | QIODevice::Text))
     {

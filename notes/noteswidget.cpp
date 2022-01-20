@@ -42,7 +42,7 @@ void NotesWidget::removeNote(Note* note)
 
 void NotesWidget::loadData()
 {
-    QFile file(QApplication::applicationDirPath() + "/notes.txt");
+    QFile file(QApplication::applicationDirPath() + "/data/notes.txt");
 
     if (not file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -106,7 +106,7 @@ void NotesWidget::loadData()
 
 void NotesWidget::saveData()
 {
-    QFile file(QApplication::applicationDirPath() + "/notes.txt");
+    QFile file(QApplication::applicationDirPath() + "/data/notes.txt");
 
     if (not file.open(QIODevice::WriteOnly | QIODevice::Text))
     {

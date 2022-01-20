@@ -3,6 +3,8 @@
 const int hideButtonSize = 50;
 
 #include <QTimer>
+#include <QApplication>
+#include <QDir>
 
 MainWindow::MainWindow()
 {
@@ -23,6 +25,14 @@ MainWindow::MainWindow()
 
     m_reminderController = new ReminderController(this);
     connect(m_reminderController, &ReminderController::reminderCreated, m_popupController, &PopupController::createPopup);
+
+
+    QDir appDir(QApplication::applicationDirPath());
+    QDir dataDir(appDir.path() + "/data");
+    if (not dataDir.exists())
+    {
+        appDir.mkdir("data");
+    }
 }
 
 void MainWindow::setupControlLayout()
@@ -62,7 +72,7 @@ void MainWindow::setupControlLayout()
 
 void MainWindow::setupStackedLayout()
 {
-    m_stackedLayout = new QStackedLayout(this);
+    m_stackedLayout = new QStackedLayout;
 
     m_englishWidget = new EnglishWidget(this);
     m_stackedLayout->addWidget(m_englishWidget);
@@ -86,5 +96,9 @@ void MainWindow::changeActiveWidget()
 
 void MainWindow::save()
 {
+    // TODO: check double save on system shutdown
     m_taskTrackerWidget->saveData();
+    m_englishWidget->saveData();
+    m_notesWidget->saveData();
+    m_spendingsWidget->saveData();
 }

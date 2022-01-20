@@ -89,7 +89,7 @@ void EnglishWidget::removeWordPair(WordPair* wordPair)
 
 void EnglishWidget::loadData()
 {
-    QFile file(QApplication::applicationDirPath() + "/english.txt");
+    QFile file(QApplication::applicationDirPath() + "/data/english.txt");
 
     if (not file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -157,7 +157,7 @@ void EnglishWidget::loadData()
 
 void EnglishWidget::saveData()
 {
-    QFile file(QApplication::applicationDirPath() + "/english.txt");
+    QFile file(QApplication::applicationDirPath() + "/data/english.txt");
 
     if (not file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -169,11 +169,14 @@ void EnglishWidget::saveData()
 
     QStringList existingCategories = CategoryColorSelector::instance().existingCategories();
 
-    for (const auto& category : existingCategories)
+    if (existingCategories.size() > 0)
     {
-        fileStream << category << "-" << CategoryColorSelector::instance().colorSymbolForCategory(category) << "\n";
+        for (const auto& category : existingCategories)
+        {
+            fileStream << category << "-" << CategoryColorSelector::instance().colorSymbolForCategory(category) << "\n";
+        }
+        fileStream << "\n";
     }
-    fileStream << "\n";
 
     for (WordPair* wordPair : m_wordPairs)
     {

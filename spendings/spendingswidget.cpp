@@ -68,7 +68,7 @@ void SpendingsWidget::removeProduct(Product* product)
 
 void SpendingsWidget::loadData()
 {
-    QFile file(QApplication::applicationDirPath() + "/spendings.txt");
+    QFile file(QApplication::applicationDirPath() + "/data/spendings.txt");
 
     if (not file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -102,7 +102,7 @@ void SpendingsWidget::loadData()
 
 void SpendingsWidget::saveData()
 {
-    QFile file(QApplication::applicationDirPath() + "/spendings.txt");
+    QFile file(QApplication::applicationDirPath() + "/data/spendings.txt");
 
     if (not file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
