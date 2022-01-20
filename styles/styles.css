@@ -39,7 +39,7 @@ ListWidget { background: darkgreen; }
 ListWidget::item { border-radius: 10px; background: rgb(180, 180, 180); }
 
 /* QScrollBar */
-QScrollBar { width: 10px; }
+QScrollBar { width: 0px; }
 
 /* MainWindow */
 MainWindow { background-color: darkgray; }
